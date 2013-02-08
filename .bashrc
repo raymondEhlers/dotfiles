@@ -1,0 +1,1 @@
+/atlas/u/rehlers/.bashrc
