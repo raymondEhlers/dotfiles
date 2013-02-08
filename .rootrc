@@ -1,0 +1,2 @@
+Rint.Logon: $HOME/install/include/atlasStyle.h
+Unix.Rint.Root.DynamicPath: $MYINSTALL/lib:.
