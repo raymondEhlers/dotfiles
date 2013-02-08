@@ -1,1 +1,0 @@
-install/include/atlasStyle.h
