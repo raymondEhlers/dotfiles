@@ -5,6 +5,9 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# Setup root
+#source setup_root.sh
+
 # Setup install area for automake
 export MYINSTALL=~/install
 export LD_LIBRARY_PATH=$MYINSTALL/lib:$LD_LIBRARY_PATH
