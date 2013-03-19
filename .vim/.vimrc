@@ -49,10 +49,22 @@ set cursorline
 " It will be rememberd
 set complete-=i
 
+" Determine plugins to disable
+let g:pathogen_disabled = []
+
+" Determine which plugins to disable, if any. I am using the existance of a locally compiled git
+" as a proxy for if this is the ATLAS cluster where this is incompatible
+if isdirectory(expand("$MYINSTALL/git/")) 
+	add(g:pathogen_disabled, 'CSApprox')
+	add(g:pathogen_disabled, 'Tagbar')
+endif
+
+" Initialize pathogen
+execute pathogen#infect()
+
 " Determine the colorscheme based on what is available
-" Perhaps a little presumptuous, but I export most of the time, ~/.vim will either be the appropriate location
-" or it will be symlinked. In either of those cases, it should be fine.
-if filereadable(expand("~/.vim/plugin/CSApprox.vim")) 
+" Match returns the index if it is found
+if match(g:pathogen_disabled, 'CSApprox') < 0
 	colorscheme darkdot
 else
 	" The cursor line looks terrible when the colors are not supported correctly
