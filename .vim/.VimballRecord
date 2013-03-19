@@ -1,0 +1,2 @@
+tagbar.vmb: call delete('/home/rehlers/.vim/autoload/tagbar.vim')|call delete('/home/rehlers/.vim/doc/tagbar.txt')|call delete('/home/rehlers/.vim/plugin/tagbar.vim')|call delete('/home/rehlers/.vim/syntax/tagbar.vim')
+supertab.vmb: call delete('/home/rehlers/.vim/doc/supertab.txt')|call delete('/home/rehlers/.vim/plugin/supertab.vim')
