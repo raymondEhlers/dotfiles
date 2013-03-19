@@ -19,6 +19,7 @@ set t_Co=256
 
 " Set tab width to 4 spaces
 set tabstop=4
+set shiftwidth=4
 
 " Enable line numbers
 set number
