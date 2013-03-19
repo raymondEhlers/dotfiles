@@ -55,8 +55,8 @@ let g:pathogen_disabled = []
 " Determine which plugins to disable, if any. I am using the existance of a locally compiled git
 " as a proxy for if this is the ATLAS cluster where this is incompatible
 if isdirectory(expand("$MYINSTALL/git/")) 
-	add(g:pathogen_disabled, 'CSApprox')
-	add(g:pathogen_disabled, 'Tagbar')
+	call add(g:pathogen_disabled, 'CSApprox')
+	call add(g:pathogen_disabled, 'Tagbar')
 endif
 
 " Initialize pathogen
