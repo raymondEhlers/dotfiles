@@ -61,6 +61,7 @@ endif
 
 " Initialize pathogen
 execute pathogen#infect()
+execute pathogen#helptags()
 
 " Determine the colorscheme based on what is available
 " Match returns the index if it is found
@@ -78,4 +79,4 @@ endif
 
 " Turns off highlighting of the search when enter is pressed. This seems somewhat heavy handed,
 " but it's super convenient, so I'm going to worry about it for now
-:nnoremap <CR> :nohlsearch<CR><CR>
+nnoremap <CR> :nohlsearch<CR><CR>
