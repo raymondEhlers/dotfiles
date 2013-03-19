@@ -56,7 +56,7 @@ let g:pathogen_disabled = []
 " as a proxy for if this is the ATLAS cluster where this is incompatible
 if isdirectory(expand("$MYINSTALL/git/")) 
 	call add(g:pathogen_disabled, 'CSApprox')
-	call add(g:pathogen_disabled, 'Tagbar')
+	call add(g:pathogen_disabled, 'tagbar')
 endif
 
 " Initialize pathogen
