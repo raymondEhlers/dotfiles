@@ -58,6 +58,10 @@ TStyle * initialzieATLASStyle()
 	atlasStyle->SetPadBorderMode(0);
 	atlasStyle->SetPadColor(0);
 	atlasStyle->SetStatColor(0);
+	
+	// Set hist stat box size
+	atlasStyle->SetStatW(.1);
+	atlasStyle->SetStatH(.1);
 
 	// set the paper & margin sizes
 	atlasStyle->SetPaperSize(20,26);
