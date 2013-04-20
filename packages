@@ -1,0 +1,14 @@
+# Dev packages
+git
+cgdb
+screen
+build-essential
+automake
+autotools
+curl
+
+# Particle packages
+libfastjet0
+fastjet-doc
+libpythia8
+root-system
