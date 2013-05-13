@@ -13,6 +13,7 @@ fi
 # Create ~/install directory if necessary
 if [[ ! -d "$HOME/install" ]]; then
 	mkdir "$HOME/install"
+	mkdir "$HOME/install/include"
 fi
 
 # Setup install area for automake

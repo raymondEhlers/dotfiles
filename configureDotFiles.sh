@@ -41,3 +41,8 @@ if [[ -e "$HOME/.vim" ]]; then
 fi
 ln -s "$PWD/.vim" "$HOME/.vim"
 
+# .vimrc
+if [[ -e "$HOME/.vimrc" ]]; then
+	mv "$HOME/.vimrc" "$HOME/.dotFilesBak/.vimrc"
+fi
+ln -s "$PWD/.vim/.vimrc" "$HOME/.vimrc"
