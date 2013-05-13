@@ -21,6 +21,9 @@ set t_Co=256
 set tabstop=4
 set shiftwidth=4
 
+" Set tab settings for python
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
 " Enable line numbers
 set number
 
