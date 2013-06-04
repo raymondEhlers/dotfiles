@@ -14,10 +14,11 @@ fi
 if [[ ! -d "$HOME/install" ]]; then
 	mkdir "$HOME/install"
 	mkdir "$HOME/install/include"
+	mkdir "$HOME/install/lib"
 fi
 
 # Setup install area for automake
-export MYINSTALL=~/install
+export MYINSTALL="$HOME/install"
 export LD_LIBRARY_PATH="$MYINSTALL/lib":$LD_LIBRARY_PATH
 
 # Check if Git is installed locally. If so, add it to the path before MYINSTALL
