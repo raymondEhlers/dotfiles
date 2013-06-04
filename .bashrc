@@ -15,6 +15,7 @@ if [[ ! -d "$HOME/install" ]]; then
 	mkdir "$HOME/install"
 	mkdir "$HOME/install/include"
 	mkdir "$HOME/install/lib"
+	mkdir "$HOME/install/bin"
 fi
 
 # Setup install area for automake
