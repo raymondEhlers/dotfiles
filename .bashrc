@@ -1,6 +1,6 @@
 # .bashrc
 
-if [ $NERSC_HOST == "pdsf" ]; then
+if [[ $NERSC_HOST == "pdsf" ]]; then
 	# ALICE
 	module use /project/projectdirs/alice/software/modulefiles/
 	
@@ -62,7 +62,7 @@ alias screenNew="screen"
 
 # Use vim for syntax highlighting in less
 VLESS=$(find /usr/share/vim -name 'less.sh')
-if [ ! -z $VLESS ]; then
+if [[ ! -z $VLESS ]]; then
 	alias less=$VLESS
 fi
 
