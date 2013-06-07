@@ -1,3 +1,10 @@
+" Set nocompatible to use vim defaults rather than vi defaults. This should be done first to avoid issues
+" when the defaults are changed.
+set nocompatible
+
+" Set backspace to work as expected.
+set backspace=indent,eol,start
+
 " For autocomplete, attempt to use clang_complete. However, it may be a pain to install clang until ROOT 6
 " Set make command 
 set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
@@ -16,6 +23,9 @@ set shellcmdflag=-ic
 " Tells vim to use 256 colors in the terminal. This may or may not be required based on the system
 " However, it is necessary on the ATLAS cluster
 set t_Co=256
+
+" Enable syntax highlighting
+syntax on
 
 " Set tab width to 4 spaces
 set tabstop=4

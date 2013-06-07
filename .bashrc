@@ -1,13 +1,40 @@
 # .bashrc
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+if [ $NERSC_HOST == "pdsf" ]; then
+	# ALICE
+	module use /project/projectdirs/alice/software/modulefiles/
+	
+	# tools
+	module load subversion
+	module load cmake
+	module load git
+
+	# Useful variables
+	export alien_API_USER="rehlers"
+	export PROJECTDIR="/project/projectdirs/alice/rehlers/"
+
+	# Customize the prompt
+	DEFAULTCOLOR="\[\033[0;0m\]"
+	CYAN="\[\033[0;36m\]"
+
+	export PS1="$DEFAULTCOLOR[\u@\h $CYAN\w] $DEFAULTCOLOR\$ "
 fi
 
-# Setup ROOT if necessary
-if [[ -e "$HOME/setup_root.sh" ]]; then
-	source "$HOME/setup_root.sh"
+if [[ -z "$NERSC_HOST" ]]; then
+	# Source global definitions
+	if [ -f /etc/bashrc ]; then
+		. /etc/bashrc
+	fi
+
+	# Setup ROOT if necessary
+	if [[ -e "$HOME/setup_root.sh" ]]; then
+		source "$HOME/setup_root.sh"
+	fi
+
+	# Check if Git is installed locally. If so, add to the path before MYINSTALL
+	if [[ -d "$MYINSTALL/git/bin" ]]; then
+		export PATH="$MYINSTALL/git/bin":$PATH
+	fi
 fi
 
 # Create ~/install directory if necessary
@@ -21,15 +48,12 @@ fi
 # Setup install area for automake
 export MYINSTALL="$HOME/install"
 export LD_LIBRARY_PATH="$MYINSTALL/lib":$LD_LIBRARY_PATH
-
-# Check if Git is installed locally. If so, add it to the path before MYINSTALL
-if [[ -d "$MYINSTALL/git/bin" ]]; then
-	export PATH="$MYINSTALL/git/bin":$PATH
-fi
 export PATH="$MYINSTALL/bin":$PATH
 
 # User specific aliases and functions
+alias ls="ls --color=auto"
 alias lsl="ls -lhX"
+alias lsa="lsl -a"
 alias root="root -l"
 alias rootb="root -l -b -q"
 alias timeroot="/usr/bin/time -v -a -o time.log root -l -b -q"
@@ -44,3 +68,6 @@ fi
 
 # Remote history duplicates
 export HISTCONTROL=ignoredups
+
+# Useful variables
+export EDITOR="vim"

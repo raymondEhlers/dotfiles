@@ -1,1 +1,6 @@
+# Ensures that bash is run in the new screen session
+# This is required for bash 4 on pdsf
+shell -bash
+
+# Change scrolling to be more useful
 termcapinfo xterm ti@:te@
