@@ -73,6 +73,9 @@ if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01"
 	call add(g:pathogen_disabled, 'tagbar')
 endif
 
+" Temporary test with minibufexplorer disabled
+call add(g:pathogen_disabled, 'minibufexplorer')
+
 " Initialize pathogen
 execute pathogen#infect()
 execute pathogen#helptags()
