@@ -61,6 +61,7 @@ alias screen="screen -xR"
 alias screenNew="screen"
 
 # Use vim for syntax highlighting in less
+# This find should probably be perofmred more carefully, but it is fine for now
 VLESS=$(find /usr/share/vim -name 'less.sh')
 if [[ ! -z $VLESS ]]; then
 	alias less=$VLESS
