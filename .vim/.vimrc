@@ -37,6 +37,9 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 " Enable line numbers
 set number
 
+" Enable ruler to show location in the file
+set ruler
+
 " Search options
 " Highlight search matches and match as search continues
 set hlsearch

@@ -9,6 +9,12 @@ if [[ $NERSC_HOST == "pdsf" ]]; then
 	module load cmake
 	module load git
 
+	# I don't know exactly why this needs to be done, but it was in Megan's
+	# .bashrc. Therefore, I assume that it is needed for linking
+	if [[ $LD_LIBRARY_PATH != *$ALICE/objdir/lib* ]]; then
+		export LD_LIBRARY_PATH=$ALICE/objdir/lib/tgt_$ALICE_TARGET:$LD_LIBRARY_PATH
+	fi
+
 	# Useful variables
 	export alien_API_USER="rehlers"
 	export PROJECTDIR="/project/projectdirs/alice/rehlers/"
@@ -45,7 +51,7 @@ if [[ ! -d "$HOME/install" ]]; then
 	mkdir "$HOME/install/bin"
 fi
 
-# Setup install area for automake
+# Setup install area 
 export MYINSTALL="$HOME/install"
 export LD_LIBRARY_PATH="$MYINSTALL/lib":$LD_LIBRARY_PATH
 export PATH="$MYINSTALL/bin":$PATH
