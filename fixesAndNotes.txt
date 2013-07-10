@@ -1,0 +1,13 @@
+" Fixes background if this terminal is set
+" http://snk.tuxfamily.org/log/vim-256color-bce.html
+" http://superuser.com/questions/401926/how-to-get-shiftarrows-and-ctrlarrows-working-in-vim-in-tmux/402084#402084
+TERM=xterm-256color
+:set t_ut=
+send ^L to vim
+
+" Temporary fix for backspace
+" ^V = ctrl-v and <BS> is the backspace key (^? currently)
+" http://vimdoc.sourceforge.net/htmldoc/options.html#:fixdel
+set t_kb=^V<BS>
+
+# To check if is a symlink and it exists, use -L
