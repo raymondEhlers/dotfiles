@@ -31,6 +31,11 @@ syntax on
 set tabstop=4
 set shiftwidth=4
 
+" Autoidenting
+" set cindent
+filetype indent on
+" set autoindent
+
 " Set tab settings for python
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
@@ -54,9 +59,6 @@ set autoread
 " Show matching punctuation, and blink for two tenths of a second
 set showmatch
 set mat=2
-
-" Autoidenting
-set cindent
 
 " Highlight current line
 set cursorline
@@ -100,3 +102,8 @@ endif
 " Turns off highlighting of the search when enter is pressed. This seems somewhat heavy handed,
 " but it's super convenient, so I'm going to worry about it for now
 nnoremap <CR> :nohlsearch<CR><CR>
+
+" Deal with stupidity regarding tmux, backspace and PDSF
+if $NERSC_HOST == "pdsf" && $TMUX != ""
+	set t_kb=
+endif

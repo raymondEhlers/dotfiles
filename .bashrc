@@ -1,5 +1,32 @@
 # .bashrc
 
+# Functions
+# Inspired by http://superuser.com/a/39995 
+addToEnvironmentVariables()
+{
+	if [[ -d "$1" ]] && [[ ":$2:" != *":$1:"* ]]; then
+		echo "$1:$2"
+	else
+		echo "$2"
+	fi
+}
+
+addToPath()
+{
+	PATH=$(addToEnvironmentVariables "$1" "$PATH")
+}
+
+addToLDLibraryPath()
+{
+	LD_LIBRARY_PATH=$(addToEnvironmentVariables "$1" "$LD_LIBRARY_PATH")
+}
+
+addToManPath()
+{
+	MANPATH=$(addToEnvironmentVariables "$1" "$MANPATH")
+}
+
+# Configuration
 if [[ $NERSC_HOST == "pdsf" ]]; then
 	# ALICE
 	module use /project/projectdirs/alice/software/modulefiles/
@@ -39,22 +66,27 @@ if [[ -z "$NERSC_HOST" ]]; then
 
 	# Check if Git is installed locally. If so, add to the path before MYINSTALL
 	if [[ -d "$MYINSTALL/git/bin" ]]; then
-		export PATH="$MYINSTALL/git/bin":$PATH
+		#export PATH="$MYINSTALL/git/bin":$PATH
+		addToPath "$MYINSTALL/git/bin"
 	fi
 fi
 
 # Create ~/install directory if necessary
 if [[ ! -d "$HOME/install" ]]; then
 	mkdir "$HOME/install"
+fi
+
+# When make install is run, it appears to make the necessary folders. However, include is necessary, as I install files there
+if [[ ! -d "$HOME/install/include" ]]; then
 	mkdir "$HOME/install/include"
-	mkdir "$HOME/install/lib"
-	mkdir "$HOME/install/bin"
 fi
 
 # Setup install area 
 export MYINSTALL="$HOME/install"
-export LD_LIBRARY_PATH="$MYINSTALL/lib":$LD_LIBRARY_PATH
-export PATH="$MYINSTALL/bin":$PATH
+# These functions replace direct redefinitions of these variables
+addToLDLibraryPath "$MYINSTALL/lib"
+addToPath "$MYINSTALL/bin"
+addToManPath "$MYINSTALL/share/man"
 
 # User specific aliases and functions
 alias ls="ls --color=auto"
@@ -62,12 +94,13 @@ alias lsl="ls -lhX"
 alias lsa="lsl -a"
 alias root="root -l"
 alias rootb="root -l -b -q"
-alias timeroot="/usr/bin/time -v -a -o time.log root -l -b -q"
+alias timeRoot="/usr/bin/time -v -a -o time.log root -l -b -q"
 alias screen="screen -xR"
-alias screenNew="screen"
+alias tmux="tmux -2"
+alias tm="tmux attach || tmux new"
 
 # Use vim for syntax highlighting in less
-# This find should probably be perofmred more carefully, but it is fine for now
+# This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now
 VLESS=$(find /usr/share/vim -name 'less.sh')
 if [[ ! -z $VLESS ]]; then
 	alias less=$VLESS

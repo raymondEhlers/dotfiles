@@ -1,7 +1,7 @@
 # Dev packages
 git
 cgdb
-screen
+tmux
 build-essential
 automake
 autotools

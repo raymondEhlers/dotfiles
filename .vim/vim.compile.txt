@@ -1,2 +1,0 @@
-If it is necessary to compile vim, it should likely be configured as:
-./configure --prefix=$MYINSTALL --with-features=huge --disable-gui --without-x
