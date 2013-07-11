@@ -1,2 +1,3 @@
-Rint.Logon: $MYINSTALL/include/atlasStyle.h
-Unix.Rint.Root.DynamicPath: $MYINSTALL/lib:.
+Rint.Logon: $MYINSTALL/rootMacros/rootLogon.h
+Unix.*.Root.DynamicPath: .:$MYINSTALL/lib
+Unix.*.Root.MacroPath: .:$MYINSTALL/rootMacros:$MYINSTALL/include:$(ROOTSYS)/macros

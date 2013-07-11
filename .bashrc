@@ -71,18 +71,24 @@ if [[ -z "$NERSC_HOST" ]]; then
 	fi
 fi
 
+# Setup install area 
+export MYINSTALL="$HOME/install"
+
 # Create ~/install directory if necessary
-if [[ ! -d "$HOME/install" ]]; then
-	mkdir "$HOME/install"
+if [[ ! -d "$MYINSTALL" ]]; then
+	mkdir "$MYINSTALL"
 fi
 
 # When make install is run, it appears to make the necessary folders. However, include is necessary, as I install files there
-if [[ ! -d "$HOME/install/include" ]]; then
-	mkdir "$HOME/install/include"
+if [[ ! -d "$MYINSTALL/include" ]]; then
+	mkdir "$MYINSTALL/include"
 fi
 
-# Setup install area 
-export MYINSTALL="$HOME/install"
+# Same for rootMacros
+if [[ ! -d "$MYINSTALL/rootMacros" ]]; then
+	mkdir "$MYINSTALL/rootMacros"
+fi
+
 # These functions replace direct redefinitions of these variables
 addToLDLibraryPath "$MYINSTALL/lib"
 addToPath "$MYINSTALL/bin"

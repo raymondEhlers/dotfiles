@@ -1,68 +1,83 @@
 #!/bin/bash
 
-# Determine which machine we are on
-if [[ $NERSC_HOST == "pdsf" ]]; then
+# The two arguments are name and location
+function installFiles()
+{
+	# Note which file is being installed
+	echo "$1"
+
+	# Setup variables
+	location="$2/$1"
+	if [[ -z "$3" ]]; then
+		comparisonValue="$PWD/$1"
+	else
+		comparisonValue="$PWD/$3"
+	fi
+
+	# Test if it is a symlink
+	if [[ ! -L "$location" ]]; then
+		# Test if it exists already
+		if [[ -e "$location" ]]; then
+			mv "$location" "$HOME/.dotFilesBak/$1"
+		fi
+		ln -s "$PWD/$1" "$location"
+		echo -e "\tInstalled symlink"
+	else
+		symlinkValue=$(readlink "$location")
+		if [[ "$symlinkValue" == "$comparisonValue" ]]; then
+			echo -e "\tSymlink already setup with correct value"
+		else
+			echo -e "\tWARNING: Symlink is present, but the value is not correct. Figure this out. Leaving the symlink in place"
+		fi
+	fi
+}
+
+# Determine which machine we are on. If on pdsf, include .ext extension for bashrc
+if [[ "$NERSC_HOST" == "pdsf" ]]; then
 	extension=".ext"
 fi
 
+# Create backup location if necessary
 if [[ ! -d "$HOME/.dotFilesBak" ]]; then
 	mkdir "$HOME/.dotFilesBak"
+else
+	echo -e "\tThere are already backup files. Please move or remove them, and run again"
+	exit 1
 fi
 
 # .bashrc
-echo ".bashrc"
-if [[ -e "$HOME/.bashrc$extension" ]]; then
-	mv "$HOME/.bashrc$extension" "$HOME/.dotFilesBak/.bashrc$extension"
-fi
-ln -s "$PWD/.bashrc" "$HOME/.bashrc$extension"
-
+installFiles ".bashrc$extension" "$HOME" ".bashrc"
 source "$HOME/.bashrc"
 
 # .gitconfig
-echo ".gitconfig"
-if [[ -e "$HOME/.gitconfig" ]]; then
-	mv "$HOME/.gitconfig" "$HOME/.dotFilesBak/.gitconfig"
-fi
-ln -s "$PWD/.gitconfig" "$HOME/.gitconfig"
+installFiles ".gitconfig" "$HOME"
 
 # .rootrc
-echo ".rootrc"
-if [[ -e "$HOME/.rootrc" ]]; then
-	mv "$HOME/.rootrc" "$HOME/.dotFilesBak/.rootrc"
-fi
-ln -s "$PWD/.rootrc" "$HOME/.rootrc"
+installFiles ".rootrc" "$HOME"
 
 # .screenrc
-echo ".screenrc"
-if [[ -e "$HOME/.screenrc" ]]; then
-	mv "$HOME/.screenrc" "$HOME/.dotFilesBak/.screenrc"
-fi
-ln -s "$PWD/.screenrc" "$HOME/.screenrc"
+installFiles ".screenrc" "$HOME"
 
 # .tmux.conf
-echo ".tmux.conf"
-if [[ -e "$HOME/.tmux.conf" ]]; then
-	mv "$HOME/.tmux.conf" "$HOME/.dotFilesBak/.tmux.conf"
-fi
-ln -s "$PWD/.tmux.conf" "$HOME/.tmux.conf"
+installFiles ".tmux.conf" "$HOME"
 
-# atlasStyle.h
-echo "Installing root style"
-if [[ -e "$MYINSTALL/include/atlasStyle.h" ]]; then
-	mv "$MYINSTALL/include/atlasStyle.h" "$HOME/.dotFilesBak/atlasStyle.h"
-fi
-ln -s "$PWD/atlasStyle.h" "$MYINSTALL/include/atlasStyle.h"
+# rootLogon.h 
+installFiles "rootLogon.h" "$MYINSTALL/rootMacros"
+
+# retreiveObjects.h 
+installFiles "retreiveObjects.h" "$MYINSTALL/rootMacros"
+
+# readableStyle.h
+installFiles "readableStyle.h" "$MYINSTALL/include"
 
 # .vim folder
-echo ".vim folder"
-if [[ -e "$HOME/.vim" ]]; then
-	mv "$HOME/.vim" "$HOME/.dotFilesBak/.vim"
-fi
-ln -s "$PWD/.vim" "$HOME/.vim"
+installFiles ".vim" "$HOME"
 
 # .vimrc
-echo ".vimrc"
-if [[ -e "$HOME/.vimrc" ]]; then
-	mv "$HOME/.vimrc" "$HOME/.dotFilesBak/.vimrc"
+installFiles ".vimrc" "$HOME" ".vim/.vimrc"
+
+# Remove .dotFilesBak if it is empty
+if find "$HOME/.dotFilesBak" -maxdepth 0 -empty | read; then
+	rmdir "$HOME/.dotFilesBak"
 fi
-ln -s "$PWD/.vim/.vimrc" "$HOME/.vimrc"
+
