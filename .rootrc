@@ -1,3 +1,4 @@
 Rint.Logon: $MYINSTALL/rootMacros/rootLogon.h
 Unix.*.Root.DynamicPath: .:$MYINSTALL/lib
-Unix.*.Root.MacroPath: .:$MYINSTALL/rootMacros:$MYINSTALL/include:$(ROOTSYS)/macros
+Unix.*.Root.MacroPath: .:$MYINSTALL/rootMacros:$MYINSTALL/include
+# Apparently ROOTSYS is not acceptable for many systems, so this line should not be used :$(ROOTSYS)/macros
