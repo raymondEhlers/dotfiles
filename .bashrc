@@ -26,6 +26,18 @@ addToManPath()
 	MANPATH=$(addToEnvironmentVariables "$1" "$MANPATH")
 }
 
+# Adapted from: http://readystate4.com/2011/03/31/refresh-a-stale-tmux-session/
+function refreshTmuxDisplay()
+{
+	if [[ -n $TMUX ]]; then
+		newDisplay=$(tmux showenv | grep "^DISPLAY" | cut -d = -f 2)
+		if [[ -n "$newDisplay" ]] && [[ "$DISPLAY" != "$newDisplay" ]]; then
+			DISPLAY="$newDisplay"
+			echo "Display changed to $DISPLAY"
+		fi
+	fi
+}
+
 # Configuration
 if [[ $NERSC_HOST == "pdsf" ]]; then
 	# ALICE
@@ -43,7 +55,6 @@ if [[ $NERSC_HOST == "pdsf" ]]; then
 	fi
 
 	# Useful variables
-	export alien_API_USER="rehlers"
 	export PROJECTDIR="/project/projectdirs/alice/rehlers/"
 
 	# Customize the prompt
@@ -59,14 +70,13 @@ if [[ -z "$NERSC_HOST" ]]; then
 		. /etc/bashrc
 	fi
 
-	# Setup ROOT if necessary
+	# Setup ROOT if necessary (ony works on the ATLAS cluster)
 	if [[ -e "$HOME/setup_root.sh" ]]; then
 		source "$HOME/setup_root.sh"
 	fi
 
 	# Check if Git is installed locally. If so, add to the path before MYINSTALL
 	if [[ -d "$MYINSTALL/git/bin" ]]; then
-		#export PATH="$MYINSTALL/git/bin":$PATH
 		addToPath "$MYINSTALL/git/bin"
 	fi
 fi
@@ -104,6 +114,10 @@ alias timeRoot="/usr/bin/time -v -a -o time.log root -l -b -q"
 alias screen="screen -xR"
 alias tmux="tmux -2"
 alias tm="tmux attach || tmux new"
+# Experiment specific
+if [[ -d "$MYINSTALL/alice" ]]; then
+	alias setupAlice="source $HOME/code/alice/aliceSetup/alice-env.sh -n";
+fi
 
 # Use vim for syntax highlighting in less
 # This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now
@@ -117,3 +131,25 @@ export HISTCONTROL=ignoredups
 
 # Useful variables
 export EDITOR="vim"
+export alien_API_USER="rehlersi"
+
+# Expand tab completion without adding an extra '\' in bash 4
+# See:  http://askubuntu.com/a/318746
+if [[ $BASH_VERSINFO == 4 ]]; then
+	shopt -s direxpand
+fi
+
+# This has to be in a different function. If not, the alias will not yet be defined...
+if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
+	setupAlice -q
+
+	# If I am running this, I almost certainly need fastjet, so they should be added to PATH and LD_LIBRARY_PATH
+	export FASTJET="$MYINSTALL/alice/fastjet"
+	addToPath "$FASTJET/bin"
+	addToLDLibraryPath "$FASTJET/lib"
+fi
+
+# Create OCDB variable necessary for proper usage of testtrain.sh
+if [[ -d "$HOME/code/alice/data/OCDB" ]]; then
+	export ALICE_OCDB="$HOME/code/alice/data/OCDB"
+fi

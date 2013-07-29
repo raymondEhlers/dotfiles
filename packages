@@ -8,7 +8,8 @@ autotools
 curl
 
 # Particle packages
-libfastjet0
-fastjet-doc
-libpythia8
-root-system
+#libfastjet0
+#fastjet-doc
+#libhepmc4
+#libpythia8
+#root-system

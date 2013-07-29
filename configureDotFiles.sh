@@ -7,20 +7,22 @@ function installFiles()
 	echo "$1"
 
 	# Setup variables
-	location="$2/$1"
+	file="$1"
+	location="$2/$file"
 	if [[ -z "$3" ]]; then
-		comparisonValue="$PWD/$1"
+		comparisonValue="$PWD/$file"
 	else
 		comparisonValue="$PWD/$3"
+		file="$3"
 	fi
 
 	# Test if it is a symlink
 	if [[ ! -L "$location" ]]; then
 		# Test if it exists already
 		if [[ -e "$location" ]]; then
-			mv "$location" "$HOME/.dotFilesBak/$1"
+			mv "$location" "$HOME/.dotFilesBak/"
 		fi
-		ln -s "$PWD/$1" "$location"
+		ln -s "$PWD/$file" "$location"
 		echo -e "\tInstalled symlink"
 	else
 		symlinkValue=$(readlink "$location")

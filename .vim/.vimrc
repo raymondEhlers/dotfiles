@@ -5,7 +5,6 @@ set nocompatible
 " Set backspace to work as expected.
 set backspace=indent,eol,start
 
-" For autocomplete, attempt to use clang_complete. However, it may be a pain to install clang until ROOT 6
 " Set make command 
 set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
 
@@ -100,10 +99,14 @@ else
 endif
 
 " Turns off highlighting of the search when enter is pressed. This seems somewhat heavy handed,
-" but it's super convenient, so I'm going to worry about it for now
+" but it's super convenient, so I'm not going to worry about it for now
 nnoremap <CR> :nohlsearch<CR><CR>
 
 " Deal with stupidity regarding tmux, backspace and PDSF
 if $NERSC_HOST == "pdsf" && $TMUX != ""
 	set t_kb=
+endif
+
+if $ALICE_ROOT != ""
+	set makeprg=set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
 endif

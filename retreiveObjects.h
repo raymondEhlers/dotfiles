@@ -1,8 +1,13 @@
 // This allows one to easily access specific types without having to write out a longer cast
 // It is nothing more than a simple wrapper, but it will save me time.
 
+// NOTE: Root is not consistent with its ability to handle namespaces, so I am just hiding it from
+//  CINT in general.
+
+#ifndef __CINT__
 namespace HEPUtilities
 {
+#endif
 	// This function is only needed if this file is loaded directly as a macro
 	void retreiveObjects()
 	{
@@ -33,11 +38,6 @@ namespace HEPUtilities
 	{
 		return (dynamic_cast <THnSparseF *> (list->FindObject(name)));
 	}
+#ifndef __CINT__
 }
-
-// Should this be located below, when retreiveObjects is actually being called? Almost certainly not, but
-// I wouldn't be doing this unless wasn't rather obnoxious in the first place...
-#ifdef __CINT__
-using namespace HEPUtilities;
 #endif
-

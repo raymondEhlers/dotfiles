@@ -1,4 +1,7 @@
 Rint.Logon: $MYINSTALL/rootMacros/rootLogon.h
+Rint.HistSize: 10000
+Rint.HistSave: 100
+
 Unix.*.Root.DynamicPath: .:$MYINSTALL/lib
 Unix.*.Root.MacroPath: .:$MYINSTALL/rootMacros:$MYINSTALL/include
 # Apparently ROOTSYS is not acceptable for many systems, so this line should not be used :$(ROOTSYS)/macros
