@@ -103,6 +103,8 @@ endif
 nnoremap <CR> :nohlsearch<CR><CR>
 
 " Deal with stupidity regarding tmux, backspace and PDSF
+" ^V = ctrl-v and <BS> is the backspace key (^? currently)
+" http://vimdoc.sourceforge.net/htmldoc/options.html#:fixdel
 if $NERSC_HOST == "pdsf" && $TMUX != ""
 	set t_kb=
 endif
