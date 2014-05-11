@@ -26,8 +26,17 @@ addToManPath()
 	MANPATH=$(addToEnvironmentVariables "$1" "$MANPATH")
 }
 
+lpdf()
+{
+	if [[ -n "$1" ]]; then
+		lesspipe "$1" | less
+	else
+		echo "Please select a pdf file to open"
+	fi
+}
+
 # Adapted from: http://readystate4.com/2011/03/31/refresh-a-stale-tmux-session/
-function refreshTmuxDisplay()
+refreshTmuxDisplay()
 {
 	if [[ -n $TMUX ]]; then
 		newDisplay=$(tmux showenv | grep "^DISPLAY" | cut -d = -f 2)
@@ -113,7 +122,7 @@ alias rootb="root -l -b -q"
 alias timeRoot="/usr/bin/time -v -a -o time.log root -l -b -q"
 alias screen="screen -xR"
 alias tmux="tmux -2"
-alias tm="tmux attach || tmux new"
+alias tm="tmux attach-session || tmux new"
 # Experiment specific
 if [[ -d "$MYINSTALL/alice" ]]; then
 	alias setupAlice="source $HOME/code/alice/aliceSetup/alice-env.sh -n";

@@ -10,8 +10,14 @@ std::cout << "Please reconsider your usage of this file" std::endl;
 {
 	// Set general build preferences. This only applies to ACLiC.
 	// kTrue causes the build dir to be relative. This may break for dir path with spaces...
-	std::cout << "Loading build preferences" << std::endl;
-	gSystem->SetBuildDir("$PWD/build", kTRUE);
+	// However, this should not be done when running with the train
+	const char * etrainRoot = gSystem->Getenv("ETRAIN_ROOT");
+	if (etrainRoot == 0)
+	{
+		std::cout << "Loading build preferences" << std::endl;
+		gSystem->SetBuildDir("$PWD/build", kTRUE);
+		//gROOT->ProcessLine(".exception");
+	}
 
 	const char * hostname = gSystem->Getenv("NERSC_HOST");
 	// If hostname is null, then we are not on pdsf, and the style should be loaded

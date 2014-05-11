@@ -2,6 +2,28 @@
 " when the defaults are changed.
 set nocompatible
 
+" Required for vundle
+filetype off
+
+" Sets the runtime path to invlude Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Setup plugins
+" Must have Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'
+
+" Other plugins
+Plugin 'godlygeek/CSApprox'
+Plugin 'tpope/vim-fugitive'
+Plugin 'fholgado/minibufexpl.vim'
+Plugin 'ervandew/supertab'
+Plugin 'majutsushi/tagbar'
+
+" Finish Vundle setup
+call vundle#end()
+filetype plugin indent on
+
 " Set backspace to work as expected.
 set backspace=indent,eol,start
 
@@ -32,11 +54,12 @@ set shiftwidth=4
 
 " Autoidenting
 " set cindent
-filetype indent on
+" filetype indent on
 " set autoindent
 
 " Set tab settings for python
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 spell spelllang=en_us
 
 " Enable line numbers
 set number
