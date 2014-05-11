@@ -26,9 +26,9 @@ Plugin 'fholgado/minibufexpl.vim'
 if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01"
 	" If we are on these hosts, we need to remove the plugins.
 	" We can do this via the runtime path
-	"set runtimepath-=~/.vim/bundle/CSApprox
-	"set runtimepath-=~/.vim/bundle/tagbar
-	"set runtimepath-=~/.vim/bundle/minibufexpl.vim
+	set runtimepath-=~/.vim/bundle/CSApprox
+	set runtimepath-=~/.vim/bundle/tagbar
+	set runtimepath-=~/.vim/bundle/minibufexpl.vim
 
 	" Also setup the colorscheme. 
 	" The cursor line looks terrible when the colors are not supported correctly
