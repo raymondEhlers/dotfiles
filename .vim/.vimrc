@@ -6,7 +6,7 @@ set nocompatible
 filetype off
 
 " Sets the runtime path to invlude Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Setup plugins
@@ -14,11 +14,33 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Other plugins
-Plugin 'godlygeek/CSApprox'
 Plugin 'tpope/vim-fugitive'
-Plugin 'fholgado/minibufexpl.vim'
 Plugin 'ervandew/supertab'
+Plugin 'godlygeek/CSApprox'
 Plugin 'majutsushi/tagbar'
+Plugin 'fholgado/minibufexpl.vim'
+
+" Determine which plugins to disable, if any. I am using the existance of a locally compiled git
+" as a proxy for if this is the ATLAS cluster where this is incompatible
+"if isdirectory(expand("$MYINSTALL/git/")) 
+if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01"
+	" If we are on these hosts, we need to remove the plugins.
+	" We can do this via the runtime path
+	"set runtimepath-=~/.vim/bundle/CSApprox
+	"set runtimepath-=~/.vim/bundle/tagbar
+	"set runtimepath-=~/.vim/bundle/minibufexpl.vim
+
+	" Also setup the colorscheme. 
+	" The cursor line looks terrible when the colors are not supported correctly
+	set nocursorline
+	try
+		colorscheme darkdotSnapshot
+	catch
+		colorscheme ron 
+	endtry
+else
+	colorscheme darkdot
+endif
 
 " Finish Vundle setup
 call vundle#end()
@@ -88,38 +110,6 @@ set cursorline
 " Remove include from autocompletion search to avoid wasting time searching. Once a function is used once,
 " It will be rememberd
 set complete-=i
-
-" Determine plugins to disable
-let g:pathogen_disabled = []
-
-" Determine which plugins to disable, if any. I am using the existance of a locally compiled git
-" as a proxy for if this is the ATLAS cluster where this is incompatible
-"if isdirectory(expand("$MYINSTALL/git/")) 
-if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01"
-	call add(g:pathogen_disabled, 'CSApprox')
-	call add(g:pathogen_disabled, 'tagbar')
-endif
-
-" Temporary test with minibufexplorer disabled
-call add(g:pathogen_disabled, 'minibufexplorer')
-
-" Initialize pathogen
-execute pathogen#infect()
-execute pathogen#helptags()
-
-" Determine the colorscheme based on what is available
-" Match returns the index if it is found
-if match(g:pathogen_disabled, 'CSApprox') < 0
-	colorscheme darkdot
-else
-	" The cursor line looks terrible when the colors are not supported correctly
-	set nocursorline
-	try
-		colorscheme darkdotSnapshot
-	catch
-		colorscheme ron 
-	endtry
-endif
 
 " Turns off highlighting of the search when enter is pressed. This seems somewhat heavy handed,
 " but it's super convenient, so I'm not going to worry about it for now

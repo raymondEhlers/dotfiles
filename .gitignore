@@ -1,2 +1,6 @@
 # Ignore, as it will be different on all systems
 *.netrwhist
+
+# Ignore files in bundle folder except for Vundle
+bundle/*
+~bundle/vundle.vim
