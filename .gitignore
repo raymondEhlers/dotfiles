@@ -2,5 +2,5 @@
 *.netrwhist
 
 # Ignore files in bundle folder except for Vundle
-bundle/*
-~bundle/vundle.vim
+bundle/
+!bundle/vundle.vim
