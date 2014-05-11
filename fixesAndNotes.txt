@@ -11,3 +11,7 @@ send ^L to vim
 set t_kb=^V<BS>
 
 # To check if is a symlink and it exists, use -L
+
+# To update vim plugins managed by vundle, run
+vim -c VundleUpdate -c quitall
+or alternatively, just call VundleUpdate inside of vim (or perhaps PluginInstall)
