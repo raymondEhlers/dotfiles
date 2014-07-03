@@ -124,7 +124,8 @@ alias screen="screen -xR"
 alias tmux="tmux -2"
 alias tm="tmux attach-session || tmux new"
 # Experiment specific
-if [[ -d "$MYINSTALL/alice" ]]; then
+#if [[ -d "$MYINSTALL/alice" ]] || [[ -d "/opt/alice" ]]; then
+if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
 	alias setupAlice="source $HOME/code/alice/aliceSetup/alice-env.sh -n";
 fi
 
@@ -153,9 +154,9 @@ if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
 	setupAlice -q
 
 	# If I am running this, I almost certainly need fastjet, so they should be added to PATH and LD_LIBRARY_PATH
-	export FASTJET="$MYINSTALL/alice/fastjet"
-	addToPath "$FASTJET/bin"
-	addToLDLibraryPath "$FASTJET/lib"
+	#export FASTJET="$MYINSTALL/alice/fastjet"
+	#addToPath "$FASTJET/bin"
+	#addToLDLibraryPath "$FASTJET/lib"
 fi
 
 # Create OCDB variable necessary for proper usage of testtrain.sh

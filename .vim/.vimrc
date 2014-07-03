@@ -18,7 +18,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/CSApprox'
 Plugin 'majutsushi/tagbar'
-Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'fholgado/minibufexpl.vim'
 
 " Determine which plugins to disable, if any. I am using the existance of a locally compiled git
 " as a proxy for if this is the ATLAS cluster where this is incompatible
@@ -122,6 +122,8 @@ if $NERSC_HOST == "pdsf" && $TMUX != ""
 	set t_kb=
 endif
 
-if $ALICE_ROOT != ""
+"if $ALICE_ROOT != ""
+" Check if EMCAL is in the path to determine whether to use this make command?
+if $NERSC_HOST == "pdsf"
 	set makeprg=set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
 endif
