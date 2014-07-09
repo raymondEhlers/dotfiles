@@ -15,3 +15,6 @@ set t_kb=^V<BS>
 # To update vim plugins managed by vundle, run
 vim -c VundleUpdate -c quitall
 or alternatively, just call VundleUpdate inside of vim (or perhaps PluginInstall)
+
+# To install packages via aptitude
+sudo aptitude install $(sed 's/^#.*//' packages | sed '/^$/d')
