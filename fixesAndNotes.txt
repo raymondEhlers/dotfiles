@@ -18,3 +18,25 @@ or alternatively, just call VundleUpdate inside of vim (or perhaps PluginInstall
 
 # To install packages via aptitude
 sudo aptitude install $(sed 's/^#.*//' packages | sed '/^$/d')
+
+# To use latex in markdown documents, add to the top of the document: (Then write as `$x^2$` or with `$$x^2$$`
+# From: http://stackoverflow.com/a/12979200
+<style TYPE="text/css">
+code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+</style>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+    }
+});
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
