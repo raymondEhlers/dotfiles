@@ -128,7 +128,7 @@ nnoremap <leader>v V`]
 
 " Open corresponding html with browser after markdown
 " http://tuxion.com/2011/09/30/vim-makeprg.html
-nnoremap <Leader>b :!chromium-browser %<.html<CR><CR>
+nnoremap <Leader>b :!chromium-browser %<.html &<CR><CR>
 
 " Folding settings
 " http://smartic.us/2009/04/06/code-folding-in-vim/

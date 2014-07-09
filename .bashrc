@@ -73,6 +73,9 @@ if [[ $NERSC_HOST == "pdsf" ]]; then
 	export PS1="$DEFAULTCOLOR[\u@\h $CYAN\w] $DEFAULTCOLOR\$ "
 fi
 
+# Setup install area
+export MYINSTALL="$HOME/install"
+
 if [[ -z "$NERSC_HOST" ]]; then
 	# Source global definitions
 	if [ -f /etc/bashrc ]; then
@@ -84,14 +87,11 @@ if [[ -z "$NERSC_HOST" ]]; then
 		source "$HOME/setup_root.sh"
 	fi
 
-	# Check if Git is installed locally. If so, add to the path before MYINSTALL
+	# Check if Git is installed locally. If so, add to the path
 	if [[ -d "$MYINSTALL/git/bin" ]]; then
 		addToPath "$MYINSTALL/git/bin"
 	fi
 fi
-
-# Setup install area 
-export MYINSTALL="$HOME/install"
 
 # Create ~/install directory if necessary
 if [[ ! -d "$MYINSTALL" ]]; then
@@ -129,6 +129,10 @@ if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
 	alias setupAlice="source $HOME/code/alice/aliceSetup/alice-env.sh -n";
 fi
 
+# SSH aliases
+alias rhigServer="ssh -Y ***REMOVED***"
+alias srsServer="ssh -Y ***REMOVED***"
+
 # Use vim for syntax highlighting in less
 # This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now
 VLESS=$(find /usr/share/vim -name 'less.sh')
@@ -152,11 +156,6 @@ fi
 # This has to be in a different function. If not, the alias will not yet be defined...
 if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
 	setupAlice -q
-
-	# If I am running this, I almost certainly need fastjet, so they should be added to PATH and LD_LIBRARY_PATH
-	#export FASTJET="$MYINSTALL/alice/fastjet"
-	#addToPath "$FASTJET/bin"
-	#addToLDLibraryPath "$FASTJET/lib"
 fi
 
 # Create OCDB variable necessary for proper usage of testtrain.sh
