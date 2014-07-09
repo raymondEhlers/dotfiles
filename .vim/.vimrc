@@ -18,6 +18,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/CSApprox'
 Plugin 'majutsushi/tagbar'
+Plugin 'git://git.code.sf.net/p/atp-vim/code', {'name': 'atp-vim'}
+Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'fholgado/minibufexpl.vim'
 
 " Determine which plugins to disable, if any. I am using the existance of a locally compiled git
@@ -50,7 +52,6 @@ filetype plugin indent on
 set backspace=indent,eol,start
 
 " Set make command 
-set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
 
 " Automatically change to the directory of the current buffer (this makes part of the make command
 " redundant, but it is better to be safe)
@@ -73,11 +74,6 @@ syntax on
 " Set tab width to 4 spaces
 set tabstop=4
 set shiftwidth=4
-
-" Autoidenting
-" set cindent
-" filetype indent on
-" set autoindent
 
 " Set tab settings for python
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -115,6 +111,32 @@ set complete-=i
 " but it's super convenient, so I'm not going to worry about it for now
 nnoremap <CR> :nohlsearch<CR><CR>
 
+" These remaps are taken from: http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+" Makes j and k move by file line instead of screen line
+nnoremap j gj
+nnoremap k gk
+
+" Remap leader to something easier to use
+let mapleader = " "
+
+" Remap the % key to something easier to hit
+nnoremap <tab> %
+vnoremap <tab> %
+
+" Reselect just pasted text
+nnoremap <leader>v V`]
+
+" Open corresponding html with browser after markdown
+" http://tuxion.com/2011/09/30/vim-makeprg.html
+nnoremap <Leader>b :!chromium-browser %<.html<CR><CR>
+
+" Folding settings
+" http://smartic.us/2009/04/06/code-folding-in-vim/
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
+
 " Deal with stupidity regarding tmux, backspace and PDSF
 " ^V = ctrl-v and <BS> is the backspace key (^? currently)
 " http://vimdoc.sourceforge.net/htmldoc/options.html#:fixdel
@@ -122,8 +144,15 @@ if $NERSC_HOST == "pdsf" && $TMUX != ""
 	set t_kb=
 endif
 
-"if $ALICE_ROOT != ""
-" Check if EMCAL is in the path to determine whether to use this make command?
-if $NERSC_HOST == "pdsf"
-	set makeprg=set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
+" Configure latex to use a build directory
+let b:atp_OutDir = 'build/'
+
+" Set make command based on what files are available
+" First deal with C/C++
+if filereadable("../build/Makefile")
+	set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
+elseif filereadable("../train/rebuild.sh")
+	set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
 endif
+" Now deal with markdown
+autocmd BufNewFile,BufRead *.md setlocal makeprg=(pandoc\ -o\ %<.html\ %)
