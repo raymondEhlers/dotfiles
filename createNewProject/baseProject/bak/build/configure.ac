@@ -1,0 +1,11 @@
+AC_INIT([baseProject],[0.1])
+AC_CONFIG_SRCDIR(Makefile.am)
+
+AM_INIT_AUTOMAKE([subdir-objects])
+
+AC_CONFIG_MACRO_DIR([m4])
+AC_ENABLE_STATIC(no)
+AC_PROG_LIBTOOL
+AC_PROG_CXX(CC g++)
+
+AC_OUTPUT(Makefile)

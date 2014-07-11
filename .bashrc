@@ -132,6 +132,7 @@ fi
 # SSH aliases
 alias rhigServer="ssh -Y ***REMOVED***"
 alias srsServer="ssh -Y ***REMOVED***"
+alias pdsf="ssh -Y ***REMOVED***"
 
 # Use vim for syntax highlighting in less
 # This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now

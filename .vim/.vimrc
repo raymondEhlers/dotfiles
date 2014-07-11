@@ -137,6 +137,9 @@ set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
+" Ensure .md is actually considered markdown...
+au BufRead,BufNewFile *.md set filetype=markdown
+
 " Deal with stupidity regarding tmux, backspace and PDSF
 " ^V = ctrl-v and <BS> is the backspace key (^? currently)
 " http://vimdoc.sourceforge.net/htmldoc/options.html#:fixdel
