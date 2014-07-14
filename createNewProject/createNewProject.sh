@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Create a new c++ project with automake and the source files setup
 
+localPathName="/home/ray/.dotfiles/createNewProject"
+
 changeName ()
 {
 	# $1 = file, $2 = new name, $3 = new filename (bool) 
@@ -27,7 +29,7 @@ changeName ()
 	# Ensure that the new file is placed in the appropriate directory
 	newFilename="$newName/$newFilename"
 
-	echo "sed -e "s/baseProject/${newName}/g" -e "s/BaseProject/${newNameProperCase}/g" -e "s/BASEPROJECT/${newNameUpperCase}/g" "baseProject/${1}" > "${newFilename}""
+	sed -e "s/baseProject/${newName}/g" -e "s/BaseProject/${newNameProperCase}/g" -e "s/BASEPROJECT/${newNameUpperCase}/g" "$localPathName/baseProject/${1}" > "${newFilename}"
 }
 
 if [[ -z $1 ]]
@@ -40,6 +42,7 @@ newName="${1}"
 
 # Create the necessary directory structure
 mkdir -p "${newName}/build"
+mkdir -p "${newName}/build/m4"
 mkdir -p "${newName}/src"
 
 # Relevant files are:
@@ -48,6 +51,7 @@ mkdir -p "${newName}/src"
 # Take care of the build directory
 changeName build/Makefile.am "${newName}" false
 changeName build/configure.ac "${newName}" false
+ln -s $localPathName/../autogen.sh "${newName}/build/."
 
 # Take care of the src directory
 changeName src/baseProject.cc "${newName}" true

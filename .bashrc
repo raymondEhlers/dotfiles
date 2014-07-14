@@ -103,6 +103,11 @@ if [[ ! -d "$MYINSTALL/include" ]]; then
 	mkdir "$MYINSTALL/include"
 fi
 
+# bin is also necessary
+if [[ ! -d "$MYINSTALL/bin" ]]; then
+	mkdir "$MYINSTALL/bin"
+fi
+
 # Same for rootMacros
 if [[ ! -d "$MYINSTALL/rootMacros" ]]; then
 	mkdir "$MYINSTALL/rootMacros"
