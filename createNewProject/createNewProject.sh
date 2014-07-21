@@ -57,3 +57,4 @@ ln -s $localPathName/../autogen.sh "${newName}/build/."
 changeName src/baseProject.cc "${newName}" true
 changeName src/baseProject.h "${newName}" true
 changeName src/baseProjectLinkDef.h "${newName}" true
+changeName src/main.cc "${newName}" false
