@@ -75,9 +75,10 @@ syntax on
 set tabstop=4
 set shiftwidth=4
 
-" Set tab settings for python
+" Set tab settings for python, markdown, and latex
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 spell spelllang=en_us
+autocmd Filetype tex setlocal spell spelllang=en_us
 
 " Enable line numbers
 set number
