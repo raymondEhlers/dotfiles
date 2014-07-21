@@ -5,7 +5,7 @@
 #include <TStyle.h>
 #include <iostream>
 
-TStyle * initialzieReadableStyle()
+TStyle * initializeReadableStyle()
 #endif
 {
 	#ifdef __CINT__
