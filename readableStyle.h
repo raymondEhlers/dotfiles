@@ -71,7 +71,7 @@ TStyle * initializeReadableStyle()
 	readableStyle->SetStatH(.1);
 
 	// set the paper & margin sizes
-	readableStyle->SetPaperSize(20,26);
+	//readableStyle->SetPaperSize(20,26);
 
 	// Comment out the margin sizes to make the TPaletteAxis labels readable
 	// set margin sizes

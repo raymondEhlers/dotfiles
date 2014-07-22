@@ -1,0 +1,31 @@
+*.swp
+test/
+.DS_Store
+
+# Ignore folders
+bak/
+log/
+.deps/
+
+# Ignore all files in folder (except for exceptions below)
+*/build/*
+
+# Ignore filetypes
+*.root
+*.pdf
+*.m4
+*.log
+*.out
+*.err
+*.o
+*.lo
+*_Dict.*
+*.dirstamp
+
+# Keep this files in the repo
+# For build/
+!*/build/Makefile.am
+!*/build/configure.ac
+!*/build/autogen.sh
+!*/build/m4/
+!*/build/m4/.keepInGit

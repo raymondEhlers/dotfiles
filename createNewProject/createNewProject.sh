@@ -43,6 +43,7 @@ newName="${1}"
 # Create the necessary directory structure
 mkdir -p "${newName}/build"
 mkdir -p "${newName}/build/m4"
+touch "${newName}/build/m4/.keepInGit"
 mkdir -p "${newName}/src"
 
 # Relevant files are:
@@ -51,10 +52,13 @@ mkdir -p "${newName}/src"
 # Take care of the build directory
 changeName build/Makefile.am "${newName}" false
 changeName build/configure.ac "${newName}" false
-ln -s $localPathName/../autogen.sh "${newName}/build/."
+ln -s "$localPathName/../autogen.sh" "${newName}/build/."
 
 # Take care of the src directory
 changeName src/baseProject.cc "${newName}" true
 changeName src/baseProject.h "${newName}" true
 changeName src/baseProjectLinkDef.h "${newName}" true
 changeName src/main.cc "${newName}" false
+
+# Take care of .gitignore when the git repo is created
+ln -s "$localPathName/.gitignore" "${newName}/."
