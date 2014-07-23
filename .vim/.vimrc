@@ -108,6 +108,9 @@ set cursorline
 " It will be rememberd
 set complete-=i
 
+" Automatically writes the file if invoking make, change buffers, etc...
+set autowrite
+
 " Turns off highlighting of the search when enter is pressed. This seems somewhat heavy handed,
 " but it's super convenient, so I'm not going to worry about it for now
 nnoremap <CR> :nohlsearch<CR><CR>

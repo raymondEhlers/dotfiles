@@ -9,6 +9,7 @@ log/
 
 # Ignore all files in folder (except for exceptions below)
 */build/*
+build/*
 
 # Ignore filetypes
 *.root
@@ -23,9 +24,15 @@ log/
 *.dirstamp
 
 # Keep this files in the repo
-# For build/
+# For */build/
 !*/build/Makefile.am
 !*/build/configure.ac
 !*/build/autogen.sh
 !*/build/m4/
 !*/build/m4/.keepInGit
+# For build/
+!*build/Makefile.am
+!*build/configure.ac
+!*build/autogen.sh
+!*build/m4/
+!*build/m4/.keepInGit
