@@ -79,7 +79,7 @@ installFiles ".vim" "$HOME"
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
 # createNewProject (c++)
-sed --in-place=.bak -e "s|\(localPathName=\)\"[0-9a-zA-Z/]*\"|\1\"$PWD\/createNewProject\"|" createNewProject/createNewProject.sh
+sed --in-place=.bak -e "s|\(localPathName=\)\"[0-9a-zA-Z/.]*\"|\1\"$PWD\/createNewProject\"|" createNewProject/createNewProject.sh
 installFiles "newCppProject" "$MYINSTALL/bin" "createNewProject/createNewProject.sh"
 
 # Remove .dotFilesBak if it is empty
