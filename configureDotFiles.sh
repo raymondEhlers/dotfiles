@@ -78,6 +78,9 @@ installFiles ".vim" "$HOME"
 # .vimrc
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
+# .ssh config
+installFiles "config" "$HOME/.ssh" ".ssh/config"
+
 # createNewProject (c++)
 sed --in-place=.bak -e "s|\(localPathName=\)\"[0-9a-zA-Z/]*\"|\1\"$PWD\/createNewProject\"|" createNewProject/createNewProject.sh
 installFiles "newCppProject" "$MYINSTALL/bin" "createNewProject/createNewProject.sh"
