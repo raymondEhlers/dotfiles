@@ -1,5 +1,7 @@
 # .bashrc
 
+. "$HOME/.dotfiles/serverAliases.sh"
+
 # Functions
 # Inspired by http://superuser.com/a/39995 
 addToEnvironmentVariables()
@@ -118,26 +120,51 @@ addToLDLibraryPath "$MYINSTALL/lib"
 addToPath "$MYINSTALL/bin"
 addToManPath "$MYINSTALL/share/man"
 
+# Setup GO lang
+export GOPATH=$HOME/.go
+#addToPath "$GOPATH/bin"
+
 # User specific aliases and functions
-alias ls="ls --color=auto"
-alias lsl="ls -lhX"
-alias lsa="lsl -a"
+# -l is long, -h is human readable sizes, -X is ordered by file type (ie alphabetical by folder, then file, etc), F adds additional decoration (/ after folder, * after executable, @ after symlinks, etc)
+lsColorOptions="--color=auto"
+lslOptions="-lhXF"
+lsaOptions="-a"
+# Check if on a Mac
+if [[ $(uname -s) == "Darwin" ]];
+then
+    # Enables color in the terminal
+    export CLICOLORS=1
+    alias ls="ls -FG"
+
+    # Define useful aliases using coreutils
+    alias gls="gls $lsColorOptions"
+    alias glsl="gls $lslOptions"
+    alias glsa="glsl $lsaOptions"
+else
+    # Only assign to ls on linux!
+    alias ls="ls $lsColorOptions"
+    alias lsl="ls $lslOptions"
+    alias lsa="lsl $lsaOptions"
+
+    # For consistency
+    alias gls="ls"
+    alias glsl="lsl"
+    alias glsa="lsa"
+fi
+
 alias root="root -l"
 alias rootb="root -l -b -q"
 alias timeRoot="/usr/bin/time -v -a -o time.log root -l -b -q"
 alias screen="screen -xR"
 alias tmux="tmux -2"
 alias tm="tmux attach-session || tmux new"
+alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+# Weekly alias
+alias shit='fuck'
 # Experiment specific
-#if [[ -d "$MYINSTALL/alice" ]] || [[ -d "/opt/alice" ]]; then
-if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
-	alias setupAlice="source $HOME/code/alice/aliceSetup/alice-env.sh -n";
+if [[ -e "$HOME/aliceSW/alice-env.sh" ]]; then
+	alias ali="source $HOME/aliceSW/alice-env.sh -n 1";
 fi
-
-# SSH aliases
-alias rhigServer="ssh -Y ***REMOVED***"
-alias srsServer="ssh -Y ***REMOVED***"
-alias pdsf="ssh -Y ***REMOVED***"
 
 # Use vim for syntax highlighting in less
 # This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now
@@ -154,14 +181,14 @@ export EDITOR="vim"
 export alien_API_USER="rehlersi"
 
 # Expand tab completion without adding an extra '\' in bash 4
-# See:  http://askubuntu.com/a/318746
+# See: http://askubuntu.com/a/318746
 if [[ $BASH_VERSINFO == 4 ]]; then
 	shopt -s direxpand
 fi
 
 # This has to be in a different function. If not, the alias will not yet be defined...
-if [[ -e "$HOME/code/alice/aliceSetup/alice-env.sh" ]]; then
-	setupAlice -q
+if [[ -e "$HOME/aliceSW/alice-env.sh" ]]; then
+	ali -q
 fi
 
 # Create OCDB variable necessary for proper usage of testtrain.sh

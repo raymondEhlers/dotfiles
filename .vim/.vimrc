@@ -16,23 +16,13 @@ Plugin 'gmarik/Vundle.vim'
 " Other plugins
 Plugin 'tpope/vim-fugitive'
 Plugin 'ervandew/supertab'
-Plugin 'godlygeek/CSApprox'
-Plugin 'majutsushi/tagbar'
-Plugin 'git://git.code.sf.net/p/atp-vim/code', {'name': 'atp-vim'}
-Plugin 'Lokaltog/vim-easymotion'
-"Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'git://git.code.sf.net/p/atp-vim/code', {'name': 'atp-vim'}
 
 " Determine which plugins to disable, if any. I am using the existance of a locally compiled git
 " as a proxy for if this is the ATLAS cluster where this is incompatible
 "if isdirectory(expand("$MYINSTALL/git/")) 
-if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01"
-	" If we are on these hosts, we need to remove the plugins.
-	" We can do this via the runtime path
-	set runtimepath-=~/.vim/bundle/CSApprox
-	set runtimepath-=~/.vim/bundle/tagbar
-	set runtimepath-=~/.vim/bundle/minibufexpl.vim
-
-	" Also setup the colorscheme. 
+if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01" || $HOME =~ "fas" || $HOME =~ "hep"
+	" Setup the colorscheme. 
 	" The cursor line looks terrible when the colors are not supported correctly
 	set nocursorline
 	try
@@ -41,6 +31,15 @@ if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01"
 		colorscheme ron 
 	endtry
 else
+	" Only load when not on the above hosts
+	Plugin 'godlygeek/CSApprox'
+	Plugin 'majutsushi/tagbar'
+	Plugin 'Lokaltog/vim-easymotion'
+
+	" Setup line highlighting
+	set cursorline
+
+	" Set the colorscheme
 	colorscheme darkdot
 endif
 
@@ -50,8 +49,6 @@ filetype plugin indent on
 
 " Set backspace to work as expected.
 set backspace=indent,eol,start
-
-" Set make command 
 
 " Automatically change to the directory of the current buffer (this makes part of the make command
 " redundant, but it is better to be safe)
@@ -72,8 +69,28 @@ set t_Co=256
 syntax on
 
 " Set tab width to 4 spaces
+" Expand tabs as spaces, since everyone seems to be doing that right now
+set expandtab
 set tabstop=4
 set shiftwidth=4
+
+"autocmd BufNewFile,BufReadPost *.cxx set filetype=cpp
+
+" View tab as 4 spaces, but write the files with tab as 2 spaces to confirm
+" with others. See: http://stackoverflow.com/a/13855129 . I have reversed the
+" order from that answer, since they wanted the opposite.
+"autocmd BufReadPost,BufWritePost  * silent %substitute/^ \+/&&/e 
+"autocmd BufWritePre               * silent %substitute/^\( \+\)\1/\1/e
+"autocmd BufWinLeave               * silent %substitute/^\( \+\)\1/\1/e
+" These currently do not work for large indentation. Use the command on a
+" single line to see the influcence. This appears to be a vim regex bug. Fix
+" is unclear at the moment.
+
+" Return to previous line that was being edited See: http://stackoverflow.com/a/774599
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+                \| exe "normal! g'\"" | endif
+endif
 
 " Set tab settings for python, markdown, and latex
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -100,9 +117,6 @@ set autoread
 " Show matching punctuation, and blink for two tenths of a second
 set showmatch
 set mat=2
-
-" Highlight current line
-set cursorline
 
 " Remove include from autocompletion search to avoid wasting time searching. Once a function is used once,
 " It will be rememberd
@@ -152,7 +166,7 @@ if $NERSC_HOST == "pdsf" && $TMUX != ""
 endif
 
 " Configure latex to use a build directory
-let b:atp_OutDir = 'build/'
+"let b:atp_OutDir = 'build/'
 
 " Set make command based on what files are available
 " First deal with C/C++

@@ -39,6 +39,12 @@ if [[ "$NERSC_HOST" == "pdsf" ]]; then
 	extension=".ext"
 fi
 
+if [[ ! -e ".gitconfig" || ! -e ".ssh/config" || -e "serverAliases.sh" ]];
+then
+    echo "Please create .gitconfig, .ssh/config, and serverAliases.sh and then rerun."
+    exit 1
+fi
+
 # Create backup location if necessary
 if [[ ! -d "$HOME/.dotFilesBak" ]]; then
 	mkdir "$HOME/.dotFilesBak"
@@ -82,7 +88,13 @@ installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 installFiles "config" "$HOME/.ssh" ".ssh/config"
 
 # createNewProject (c++)
-sed --in-place=.bak -e "s|\(localPathName=\)\"[0-9a-zA-Z/.]*\"|\1\"$PWD\/createNewProject\"|" createNewProject/createNewProject.sh
+if [[ $(uname -s) == "Darwin" ]];
+then
+    sedExecutableName="gsed"
+else
+    sedExecutableName="sed"
+fi
+$sedExecutableName --in-place=.bak -e "s|\(localPathName=\)\"[0-9a-zA-Z/.]*\"|\1\"$PWD\/createNewProject\"|" createNewProject/createNewProject.sh
 installFiles "newCppProject" "$MYINSTALL/bin" "createNewProject/createNewProject.sh"
 
 # Remove .dotFilesBak if it is empty

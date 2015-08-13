@@ -1,6 +1,12 @@
 # Ignore, as it will be different on all systems
 *.netrwhist
+*.bak
 
 # Ignore files in bundle folder except for Vundle
 bundle/
 !bundle/Vundle.vim
+
+# Ignore files which should not be commited.
+.gitconfig
+.ssh/config
+serverAliases.sh
