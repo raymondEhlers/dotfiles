@@ -12,8 +12,7 @@ then
 fi
 
 echo "Copying from $1"
-exit 1
 
-scp "$1:~/.ssh/config" "$HOME/.dotfiles/.ssh/." 
+scp "$1:~/.dotfiles/.ssh/config" "$HOME/.dotfiles/.ssh/." 
 scp "$1:~/.dotfiles/serverAliases.sh" "$HOME/.dotfiles/."
-scp "$1:~/.gitconfig" "$HOME/.dotfiles/."
+scp "$1:~/.dotfiles/.gitconfig" "$HOME/.dotfiles/."

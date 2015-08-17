@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Create a new c++ project with automake and the source files setup
 
-localPathName="/home/ray/.dotfiles/createNewProject"
+localPathName="/Users/re239/.dotfiles/createNewProject"
 
 changeName ()
 {

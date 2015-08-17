@@ -39,7 +39,7 @@ if [[ "$NERSC_HOST" == "pdsf" ]]; then
 	extension=".ext"
 fi
 
-if [[ ! -e ".gitconfig" || ! -e ".ssh/config" || -e "serverAliases.sh" ]];
+if [[ ! -e ".gitconfig" || ! -e ".ssh/config" || ! -e "serverAliases.sh" ]];
 then
     echo "Please create .gitconfig, .ssh/config, and serverAliases.sh and then rerun."
     exit 1
