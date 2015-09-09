@@ -138,18 +138,17 @@ then
 
     # Define useful aliases using coreutils
     alias gls="gls $lsColorOptions"
-    alias glsl="gls $lslOptions"
-    alias glsa="glsl $lsaOptions"
+    alias lsl="gls $lslOptions"
+    alias lsa="glsl $lsaOptions"
+
+    # Set prompt
+    # Custom bash prompt from kirsle.net/wizards/ps1.html
+    export PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h \[$(tput setaf 4)\]\w \\$ \[$(tput sgr0)\]"
 else
     # Only assign to ls on linux!
     alias ls="ls $lsColorOptions"
     alias lsl="ls $lslOptions"
     alias lsa="lsl $lsaOptions"
-
-    # For consistency
-    alias gls="ls"
-    alias glsl="lsl"
-    alias glsa="lsa"
 fi
 
 alias root="root -l"
