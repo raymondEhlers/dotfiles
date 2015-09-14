@@ -146,7 +146,7 @@ nnoremap <leader>v V`]
 
 " Open corresponding html with browser after markdown
 " http://tuxion.com/2011/09/30/vim-makeprg.html
-nnoremap <Leader>b :!chromium-browser %<.html &<CR><CR>
+nnoremap <Leader>b :!open %<.html &<CR><CR>
 
 " Folding settings
 " http://smartic.us/2009/04/06/code-folding-in-vim/
@@ -176,4 +176,4 @@ elseif filereadable("../train/rebuild.sh")
 	set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
 endif
 " Now deal with markdown
-autocmd BufNewFile,BufRead *.md setlocal makeprg=(pandoc\ -o\ %<.html\ %)
+autocmd BufNewFile,BufRead *.md setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
