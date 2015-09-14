@@ -139,7 +139,7 @@ then
     # Define useful aliases using coreutils
     alias gls="gls $lsColorOptions"
     alias lsl="gls $lslOptions"
-    alias lsa="glsl $lsaOptions"
+    alias lsa="lsl $lsaOptions"
 
     # Set prompt
     # Custom bash prompt from kirsle.net/wizards/ps1.html
