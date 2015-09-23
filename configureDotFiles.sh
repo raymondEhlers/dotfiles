@@ -69,6 +69,9 @@ installFiles ".screenrc" "$HOME"
 # .tmux.conf
 installFiles ".tmux.conf" "$HOME"
 
+# .tmux-osx.conf
+installFiles ".tmux-osx.conf" "$HOME"
+
 # rootLogon.h 
 installFiles "rootLogon.h" "$MYINSTALL/rootMacros"
 
