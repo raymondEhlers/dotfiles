@@ -35,6 +35,7 @@ else
 	Plugin 'godlygeek/CSApprox'
 	Plugin 'majutsushi/tagbar'
 	Plugin 'Lokaltog/vim-easymotion'
+    Plugin 'mileszs/ack.vim'
 
 	" Setup line highlighting
 	set cursorline
