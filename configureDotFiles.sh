@@ -55,7 +55,7 @@ fi
 
 # .bashrc
 installFiles ".bashrc$extension" "$HOME" ".bashrc"
-source "$HOME/.bashrc"
+source "$HOME/.bashrc$extension"
 
 # .gitconfig
 installFiles ".gitconfig" "$HOME"

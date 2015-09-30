@@ -52,12 +52,12 @@ refreshTmuxDisplay()
 # Configuration
 if [[ $NERSC_HOST == "pdsf" ]]; then
 	# ALICE
-	module use /project/projectdirs/alice/software/modulefiles/
+	#module use /project/projectdirs/alice/software/modulefiles/
 	
 	# tools
-	module load subversion
-	module load cmake
-	module load git
+	#module load subversion
+	#module load cmake
+	#module load git
 
 	# I don't know exactly why this needs to be done, but it was in Megan's
 	# .bashrc. Therefore, I assume that it is needed for linking
@@ -69,10 +69,10 @@ if [[ $NERSC_HOST == "pdsf" ]]; then
 	export PROJECTDIR="/project/projectdirs/alice/rehlers/"
 
 	# Customize the prompt
-	DEFAULTCOLOR="\[\033[0;0m\]"
-	CYAN="\[\033[0;36m\]"
-
-	export PS1="$DEFAULTCOLOR[\u@\h $CYAN\w] $DEFAULTCOLOR\$ "
+	#DEFAULTCOLOR="\[\033[0;0m\]"
+	#CYAN="\[\033[0;36m\]"
+	#export PS1="$DEFAULTCOLOR[\u@\h $CYAN\w] $DEFAULTCOLOR\$ "
+	export PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h \[$(tput setaf 4)\]\w \\$ \[$(tput sgr0)\]"
 fi
 
 # Setup install area
