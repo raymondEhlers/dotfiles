@@ -120,6 +120,10 @@ addToLDLibraryPath "$MYINSTALL/lib"
 addToPath "$MYINSTALL/bin"
 addToManPath "$MYINSTALL/share/man"
 
+# To support homebrew on Mac. It is fine on linux
+addToLDLibraryPath "/usr/local/lib"
+addToPath "/usr/local/bin"
+
 # Setup GO lang
 export GOPATH=$HOME/.go
 #addToPath "$GOPATH/bin"

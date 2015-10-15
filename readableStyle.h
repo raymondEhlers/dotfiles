@@ -54,8 +54,10 @@ TStyle * initializeReadableStyle()
 	// Set margin sizes
 	readableStyle->SetPadTopMargin(0.10);
 	readableStyle->SetPadRightMargin(0.10);
-	readableStyle->SetPadBottomMargin(0.16);
-	readableStyle->SetPadLeftMargin(0.16);
+	readableStyle->SetPadBottomMargin(0.10);
+	//readableStyle->SetPadBottomMargin(0.16);
+	readableStyle->SetPadLeftMargin(0.10);
+	//readableStyle->SetPadLeftMargin(0.16);
 
 	// Title properties
 	// Positioning
