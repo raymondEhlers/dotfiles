@@ -144,15 +144,18 @@ then
     alias gls="gls $lsColorOptions"
     alias lsl="gls $lslOptions"
     alias lsa="lsl $lsaOptions"
-
-    # Set prompt
-    # Custom bash prompt from kirsle.net/wizards/ps1.html
-    export PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h \[$(tput setaf 4)\]\w \\$ \[$(tput sgr0)\]"
 else
     # Only assign to ls on linux!
     alias ls="ls $lsColorOptions"
     alias lsl="ls $lslOptions"
     alias lsa="lsl $lsaOptions"
+fi
+
+# Change the PS1 if we are not on linux mint
+if [[ ! -f /etc/lsb-release || ! $(cat /etc/lsb-release | grep -i "mint") ]]; then
+    # Set prompt
+    # Custom bash prompt from kirsle.net/wizards/ps1.html
+    export PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h \[$(tput setaf 4)\]\w \\$ \[$(tput sgr0)\]"
 fi
 
 alias root="root -l"
