@@ -20,14 +20,32 @@ std::cout << "Please reconsider your usage of this file" std::endl;
 	}
 
 	const char * hostname = gSystem->Getenv("NERSC_HOST");
-	// If hostname is null, then we are not on pdsf, and the style should be loaded
+	// If NERSC_HOST is null, then we are not on pdsf, and the style should be loaded
 	if (hostname == 0)
 	{
 		// Calling macro directly actually executes the style, rather than just loading it.
 		// This is needed, as the file is not loaded directly anymore.
-		std::cout << "Loading readableStyle.h" << std::endl;
-		gROOT->Macro("readableStyle.h");
+		//std::cout << "Loading readableStyle.h" << std::endl;
+		//gROOT->Macro("readableStyle.h");
 	}
+
+    TString systemType = gSystem->GetFromPipe("uname -s");
+    if (systemType != "")
+    {
+        //std::cout << "systemType: " << systemType << std::endl;
+        // If on Mac OS X, need to load CGAL
+        if (systemType == "Darwin")
+        {
+            std::cout << "On Mac OS X. Added /usr/local/lib to allow loading CGAL." << std::endl;
+            gSystem->AddDynamicPath("/usr/local/lib");
+            // Loads the library directly
+            //gSystem->Load("/usr/local/lib/libCGAL");
+        }
+    }
+    else
+    {
+        std::cout << "systemType is empty" << std::endl;
+    }
 
 	std::cout << "Loading retreiveObjects.h" << std::endl;
 	gROOT->LoadMacro("retreiveObjects.h");

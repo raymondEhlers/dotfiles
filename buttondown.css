@@ -77,6 +77,14 @@ div#TOC, nav#TOC
         }
     }
 
+/* Modification made by RE on 01/25/2016 for better readability. */
+body
+    {
+        width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 /* ---- Headers and sections ---- */
 
 h1, h2, h3, h4, h5, h6

@@ -5,18 +5,32 @@ set nocompatible
 " Required for vundle
 filetype off
 
+" Download vundle if necessary
+" Based on: http://erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
+let installedVundle=0
+if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
+    echo "Installing vundle"
+    echo ""
+    silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+    installedVundle=1
+endif
+
 " Sets the runtime path to invlude Vundle and initialize
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Setup plugins
 " Must have Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " Other plugins
-Plugin 'tpope/vim-fugitive'
+" Git support
+"Plugin 'tpope/vim-fugitive'
+" Enables tab to complete
 Plugin 'ervandew/supertab'
 "Plugin 'git://git.code.sf.net/p/atp-vim/code', {'name': 'atp-vim'}
+" Auto close pairs
+Plugin 'jiangmiao/auto-pairs'
 
 " Determine which plugins to disable, if any. I am using the existance of a locally compiled git
 " as a proxy for if this is the ATLAS cluster where this is incompatible
@@ -42,6 +56,13 @@ else
 
 	" Set the colorscheme
 	colorscheme darkdot
+endif
+
+" Install plugins
+if installedVundle == 1
+    echo "Installing Vundles, please ignore key map error messages"
+    echo ""
+    :PluginInstall
 endif
 
 " Finish Vundle setup
@@ -90,7 +111,7 @@ set shiftwidth=4
 " Return to previous line that was being edited See: http://stackoverflow.com/a/774599
 if has("autocmd")
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-                \| exe "normal! g'\"" | endif
+                \| exe "normal! g`\"" | endif
 endif
 
 " Set tab settings for python, markdown, and latex
@@ -147,7 +168,7 @@ nnoremap <leader>v V`]
 
 " Open corresponding html with browser after markdown
 " http://tuxion.com/2011/09/30/vim-makeprg.html
-nnoremap <Leader>b :!open %<.html &<CR><CR>
+nnoremap <leader>b :!open %<.html &<CR><CR>
 
 " Folding settings
 " http://smartic.us/2009/04/06/code-folding-in-vim/
@@ -166,15 +187,12 @@ if $NERSC_HOST == "pdsf" && $TMUX != ""
 	set t_kb=
 endif
 
-" Configure latex to use a build directory
-"let b:atp_OutDir = 'build/'
-
 " Set make command based on what files are available
 " First deal with C/C++
 if filereadable("../build/Makefile")
 	set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
-elseif filereadable("../train/rebuild.sh")
-	set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
+"elseif filereadable("../train/rebuild.sh")
+"	set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
 endif
 " Now deal with markdown
-autocmd BufNewFile,BufRead *.md setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
+autocmd BufNewFile,BufRead *.md,*.rst setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
