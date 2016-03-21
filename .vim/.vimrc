@@ -28,9 +28,38 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'tpope/vim-fugitive'
 " Enables tab to complete
 Plugin 'ervandew/supertab'
-"Plugin 'git://git.code.sf.net/p/atp-vim/code', {'name': 'atp-vim'}
 " Auto close pairs
 Plugin 'jiangmiao/auto-pairs'
+" Vim-tags to handle ctags generation
+" As of 3-16-2016, it does not work because it forces a buffer redraw on every change
+"Plugin 'szw/vim-tags'
+" Tagbar to handle ctags in the lcoal file
+Plugin 'majutsushi/tagbar'
+
+" All are reasonable colorschemes
+" lapis
+Plugin 'andrwb/vim-lapis256'
+" elda
+Plugin 'lxmzhv/vim', {'name': 'elda'}
+" muon
+Plugin 'gregsexton/Muon'
+" wolfpack
+Plugin 'carlson-erik/wolfpack'
+" Colorscheme tests!
+" OceanDeep
+"Plugin 'vim-scripts/oceandeep'
+" darkSea
+"Plugin 'atelierbram/vim-colors_duotones'
+" kalisi-dark
+"Plugin 'freeo/vim-kalisi'
+" Wombat256
+"Plugin 'MPiccinato/wombat256'
+" peaksea
+"Plugin 'jlesquembre/peaksea'
+" flattr
+"Plugin 'blindFS/flattr.vim'
+" vt_tmux (pt_black)
+"Plugin 'yantze/pt_black'
 
 " Determine which plugins to disable, if any. I am using the existance of a locally compiled git
 " as a proxy for if this is the ATLAS cluster where this is incompatible
@@ -47,15 +76,9 @@ if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01" || $HOME =~ "fas" || $HOME =~
 else
 	" Only load when not on the above hosts
 	Plugin 'godlygeek/CSApprox'
-	Plugin 'majutsushi/tagbar'
 	Plugin 'Lokaltog/vim-easymotion'
     Plugin 'mileszs/ack.vim'
 
-	" Setup line highlighting
-	set cursorline
-
-	" Set the colorscheme
-	colorscheme darkdot
 endif
 
 " Install plugins
@@ -131,6 +154,8 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+" Changes how backspaces are used
+set magic
 
 " Auto-update the open file if it is changed from outside of vim
 " Vim must run some external command like !ls for the file to update
@@ -160,6 +185,7 @@ nnoremap k gk
 let mapleader = " "
 
 " Remap the % key to something easier to hit
+" Matches parenthesis and brackets
 nnoremap <tab> %
 vnoremap <tab> %
 
@@ -169,6 +195,27 @@ nnoremap <leader>v V`]
 " Open corresponding html with browser after markdown
 " http://tuxion.com/2011/09/30/vim-makeprg.html
 nnoremap <leader>b :!open %<.html &<CR><CR>
+
+" Open tagbar
+nnoremap <leader>t :TagbarToggle<CR>
+
+" Add to tags path so that it can find tags stored in .git/tags
+" It stops searching at the home directory ("~")
+" For more info, see: https://stackoverflow.com/a/5019111
+" Handled by vim-tags
+set tags+=./.git/tags;~
+
+" Auto completion via omnicomplete
+" Should be tested further
+" For more info, see: http://vim.wikia.com/wiki/C%2B%2B_code_completion
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 " Folding settings
 " http://smartic.us/2009/04/06/code-folding-in-vim/
@@ -196,3 +243,13 @@ if filereadable("../build/Makefile")
 endif
 " Now deal with markdown
 autocmd BufNewFile,BufRead *.md,*.rst setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
+
+" Set the colorscheme
+" darkdot
+"colorscheme darkdot
+" Setup line highlighting
+"set cursorline
+"
+" lapis256
+colorscheme lapis256
+set nocursorline

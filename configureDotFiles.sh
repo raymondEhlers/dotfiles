@@ -75,6 +75,9 @@ installFiles ".tmux-osx.conf" "$HOME"
 # .ackrc
 installFiles ".ackrc" "$HOME"
 
+# .ctags
+installFiles ".ctags" "$HOME"
+
 # rootLogon.h 
 installFiles "rootLogon.h" "$MYINSTALL/rootMacros"
 

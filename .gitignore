@@ -4,7 +4,6 @@
 
 # Ignore files in bundle folder except for Vundle
 bundle/
-!bundle/Vundle.vim
 
 # Ignore files which should not be commited.
 .gitconfig
