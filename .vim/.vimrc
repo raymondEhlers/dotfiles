@@ -45,11 +45,11 @@ Plugin 'lxmzhv/vim', {'name': 'elda'}
 Plugin 'gregsexton/Muon'
 " wolfpack
 Plugin 'carlson-erik/wolfpack'
+" darkSea
+Plugin 'atelierbram/vim-colors_duotones'
 " Colorscheme tests!
 " OceanDeep
 "Plugin 'vim-scripts/oceandeep'
-" darkSea
-"Plugin 'atelierbram/vim-colors_duotones'
 " kalisi-dark
 "Plugin 'freeo/vim-kalisi'
 " Wombat256
@@ -119,17 +119,42 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-"autocmd BufNewFile,BufReadPost *.cxx set filetype=cpp
-
-" View tab as 4 spaces, but write the files with tab as 2 spaces to confirm
-" with others. See: http://stackoverflow.com/a/13855129 . I have reversed the
-" order from that answer, since they wanted the opposite.
-"autocmd BufReadPost,BufWritePost  * silent %substitute/^ \+/&&/e 
-"autocmd BufWritePre               * silent %substitute/^\( \+\)\1/\1/e
-"autocmd BufWinLeave               * silent %substitute/^\( \+\)\1/\1/e
-" These currently do not work for large indentation. Use the command on a
-" single line to see the influcence. This appears to be a vim regex bug. Fix
-" is unclear at the moment.
+" View "tab" as 4 spaces, but write the files with tab as 2 spaces to confirm
+" with others. See: https://stackoverflow.com/a/14517418 . The functions are
+" needed to allow filetype detection (it did not work inline). They are
+" inspired by https://stackoverflow.com/a/6496995 .
+" This only applies to files containing "aliphysics" or "aliroot" in the path
+" since that is where I tend to encounter two space indentation.
+" The buffer view is saved so that it can be restored. This is done because
+" the substitute command can change the buffer. See: https://stackoverflow.com/a/4776436 and
+" https://stackoverflow.com/a/19763761 .
+"
+" Doubles the whitespace that was already there
+fun! DoubleWhitespace()
+    let winview=winsaveview()
+    if &ft == 'cpp'
+        %substitute/^ \+/&&/e
+    endif
+    " Restore the buffer view
+    call winrestview(winview)
+endfun
+"
+" Remove extra whitespace added when opening the buffer
+fun! HalfWhitespace()
+    " Save the buffer view so that it can be restored. The substitute command
+    " can change the buffer
+    let winview=winsaveview()
+    if &ft == 'cpp'
+        %substitute/^\( \+\)\1/\1/e
+    endif
+    " Restore the buffer view
+    call winrestview(winview)
+endfun
+" Calls the functions when buffers are processed.
+" (I think) this relies on the fact that the buffer is set to save when vim
+" switches to another buffer.
+autocmd BufReadPost,BufWritePost  */aliphysics/*,*/aliroot/* silent call DoubleWhitespace()
+autocmd BufWritePre               */aliphysics/*,*/aliroot/* silent call HalfWhitespace()
 
 " Return to previous line that was being edited See: http://stackoverflow.com/a/774599
 if has("autocmd")
