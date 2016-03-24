@@ -12,7 +12,7 @@ if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
     echo "Installing vundle"
     echo ""
     silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-    installedVundle=1
+    let installedVundle=1
 endif
 
 " Sets the runtime path to invlude Vundle and initialize
