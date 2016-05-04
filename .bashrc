@@ -172,6 +172,13 @@ alias shit='fuck'
 if [[ -e "$HOME/aliceSW/alice-env.sh" ]]; then
 	alias ali="source $HOME/aliceSW/alice-env.sh -n 1";
 fi
+# For aliBuild
+export ALICE_WORK_DIR="$HOME/alice/sw"
+if [[ -n "$(which alienv)" ]];
+then
+    # Load environment helper
+    eval "`alienv shell-helper`"
+fi
 
 # Use vim for syntax highlighting in less
 # This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now
@@ -194,8 +201,10 @@ if [[ $BASH_VERSINFO == 4 ]]; then
 fi
 
 # This has to be in a different function. If not, the alias will not yet be defined...
-if [[ -e "$HOME/aliceSW/alice-env.sh" ]]; then
-	ali -q
+# Only do this if aliBuild is not installed. Otherwise, it will interfere
+if [[ -e "$HOME/aliceSW/alice-env.sh" && -z "$(which alienv)" ]]; then
+    echo "Running alice-env.sh"
+    ali -q
 fi
 
 # Create OCDB variable necessary for proper usage of testtrain.sh
