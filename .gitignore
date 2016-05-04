@@ -9,3 +9,6 @@ bundle/
 .gitconfig
 .ssh/config
 serverAliases.sh
+
+# Ignore spelling binary file from vim
+*.spl

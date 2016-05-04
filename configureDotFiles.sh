@@ -82,7 +82,7 @@ installFiles ".ctags" "$HOME"
 installFiles "rootLogon.h" "$MYINSTALL/rootMacros"
 
 # retreiveObjects.h 
-installFiles "retreiveObjects.h" "$MYINSTALL/rootMacros"
+installFiles "retrieveObjects.h" "$MYINSTALL/rootMacros"
 
 # readableStyle.h
 installFiles "readableStyle.h" "$MYINSTALL/include"
