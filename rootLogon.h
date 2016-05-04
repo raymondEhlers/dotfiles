@@ -47,8 +47,8 @@ std::cout << "Please reconsider your usage of this file" std::endl;
         std::cout << "systemType is empty" << std::endl;
     }
 
-	std::cout << "Loading retreiveObjects.h" << std::endl;
-	gROOT->LoadMacro("retreiveObjects.h");
+	std::cout << "Loading retrieveObjects.h" << std::endl;
+	gROOT->LoadMacro("retrieveObjects.h");
 
 	std::cout << "Finishing loading startup macros" << std::endl;
 }
