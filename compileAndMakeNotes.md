@@ -6,3 +6,5 @@ CPPFLAGS="-I$MYINSTALL/include -L$MYINSTALL/lib"
 To compile vim
 If it is necessary to compile vim, it should likely be configured as:
 ./configure --prefix=$MYINSTALL --with-features=huge --disable-gui --without-x
+
+To install matchit (better vim bracket, etc matching), see :help matchit

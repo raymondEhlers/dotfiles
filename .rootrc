@@ -1,6 +1,8 @@
 Rint.Logon: $MYINSTALL/rootMacros/rootLogon.h
 Rint.HistSize: 10000
 Rint.HistSave: 100
+# Can be used to load aliases or other functions if desired
+#Rint.Load: $MYINSTALL/rootMacros/retrieveObjects.h
 
 Unix.*.Root.DynamicPath: .:$MYINSTALL/lib
 Unix.*.Root.MacroPath: .:$MYINSTALL/rootMacros:$MYINSTALL/include
