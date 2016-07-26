@@ -1,13 +1,15 @@
 #ifndef READABLESTYLE_H 
 #define READABLESTYLE_H 
 
+// Doesn't seem to work well for ROOT 6...
+
 // Useful information here (apparently based on it?): http://svn.cern.ch/guest/lhcb/Erasmus/trunk/TrigCalib/TrigPerfScripts/scripts/lhcbstyle.C
 
 #ifndef __CINT__
 #include <TStyle.h>
 #include <iostream>
 
-TStyle * initializeReadableStyle()
+TStyle * readableStyle()
 #endif
 {
 	#ifdef __CINT__
@@ -24,8 +26,11 @@ TStyle * initializeReadableStyle()
 	cout << "Creating readable style" << std::endl;
 	#endif
 
+    // We only want to change the Palette for ROOT5. ROOT 6 looks much better
+#if ROOT_VERSION_CODE < ROOT_VERSION(6,0,0)
 	// Set basic B/W color scheme for dressing elements (ie the actual data colors is set when plotting)
 	readableStyle->SetPalette(1);
+#endif
 
 	// Remove ugly background
 	readableStyle->SetFillStyle(0);
@@ -44,7 +49,7 @@ TStyle * initializeReadableStyle()
 	readableStyle->SetStatColor(0);
 
 	// Use bold markers
-	readableStyle->SetMarkerStyle(20);
+	readableStyle->SetMarkerStyle(kFullCircle);
 	readableStyle->SetMarkerSize(1.2);
 
 	// Use bold lines for hist

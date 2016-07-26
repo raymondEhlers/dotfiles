@@ -145,6 +145,11 @@ then
     alias gls="gls $lsColorOptions"
     alias lsl="gls $lslOptions"
     alias lsa="lsl $lsaOptions"
+
+    # Enable installed bash completion files
+    if [ -f $(brew --prefix)/etc/bash_completion  ]; then
+        source $(brew --prefix)/etc/bash_completion
+    fi
 else
     # Only assign to ls on linux!
     alias ls="ls $lsColorOptions"

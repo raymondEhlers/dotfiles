@@ -1,4 +1,5 @@
 # From: https://andrew.stwrt.ca/posts/vim-ctags/
+# NOTE: CTags throws a warning that there are non-options. This is due to the comments (here defined as starting with #), since ctags does not support them. However, it should be fine.
 # Basic options
 --recurse=yes
 --tag-relative=yes
