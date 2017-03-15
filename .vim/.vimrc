@@ -35,6 +35,8 @@ Plugin 'jiangmiao/auto-pairs'
 "Plugin 'szw/vim-tags'
 " Tagbar to handle ctags in the lcoal file
 Plugin 'majutsushi/tagbar'
+" Latex helper
+Plugin 'lervag/vimtex'
 
 " All are reasonable colorschemes
 " lapis
@@ -206,8 +208,13 @@ nnoremap <CR> :nohlsearch<CR><CR>
 nnoremap j gj
 nnoremap k gk
 
+" Configure vimtex errors to ignore. These will also show up due to Debian and
+" OS X vim not being configured to include ClientServer
+let g:vimtex_echo_ignore_wait = 1
+
 " Remap leader to something easier to use
 let mapleader = " "
+"let mapleader = ";"
 
 " Remap the % key to something easier to hit
 " Matches parenthesis and brackets
@@ -268,6 +275,8 @@ if filereadable("../build/Makefile")
 endif
 " Now deal with markdown
 autocmd BufNewFile,BufRead *.md,*.rst setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
+" Latex
+autocmd BufNewFile,BufRead *.tex setlocal makeprg=(pdflatex\ %)
 
 " Set the colorscheme
 " darkdot

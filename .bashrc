@@ -6,11 +6,18 @@
 # Inspired by http://superuser.com/a/39995 
 addToEnvironmentVariables()
 {
-	if [[ -d "$1" ]] && [[ ":$2:" != *":$1:"* ]]; then
-		echo "$1:$2"
-	else
-		echo "$2"
-	fi
+    if [[ -z "$2" ]];
+    then
+        # Incase the variable being passed is not defined.
+        # Should be rather rare
+        echo "$1"
+    else
+        if [[ -d "$1" ]] && [[ ":$2:" != *":$1:"* ]]; then
+            echo "$1:$2"
+        else
+            echo "$2"
+        fi
+    fi
 }
 
 addToPath()
@@ -20,7 +27,10 @@ addToPath()
 
 addToLDLibraryPath()
 {
+    #echo "Before: $1 to $LD_LIBRARY_PATH"
+	#echo $(addToEnvironmentVariables "$1" "$LD_LIBRARY_PATH")
 	LD_LIBRARY_PATH=$(addToEnvironmentVariables "$1" "$LD_LIBRARY_PATH")
+    #echo "After: $1 to $LD_LIBRARY_PATH"
 }
 
 addToManPath()
@@ -110,6 +120,11 @@ if [[ ! -d "$MYINSTALL/bin" ]]; then
 	mkdir "$MYINSTALL/bin"
 fi
 
+# Same for lib
+if [[ ! -d "$MYINSTALL/lib" ]]; then
+	mkdir "$MYINSTALL/lib"
+fi
+
 # Same for rootMacros
 if [[ ! -d "$MYINSTALL/rootMacros" ]]; then
 	mkdir "$MYINSTALL/rootMacros"
@@ -150,6 +165,15 @@ then
     if [ -f $(brew --prefix)/etc/bash_completion  ]; then
         source $(brew --prefix)/etc/bash_completion
     fi
+
+    # Setup GPG and keychain integration
+    # From: https://medium.com/@timmywil/sign-your-commits-on-github-with-gpg-566f07762a43
+    if [ -f ~/.gnupg/.gpg-agent-info  ] && [ -n "$(pgrep gpg-agent)"  ]; then
+        source ~/.gnupg/.gpg-agent-info
+        export GPG_AGENT_INFO
+    else
+        eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+    fi
 else
     # Only assign to ls on linux!
     alias ls="ls $lsColorOptions"
@@ -183,6 +207,13 @@ if [[ -n "$(which alienv)" ]];
 then
     # Load environment helper
     eval "`alienv shell-helper`"
+fi
+alias buildRoot5="aliBuild -z root5 -w ${ALICE_WORK_DIR} --defaults release --disable GEANT3,GEANT4_VMC build AliPhysics"
+alias buildRoot6="aliBuild -z root6 -w ${ALICE_WORK_DIR} --defaults root6 --disable GEANT3,GEANT4_VMC build AliPhysics"
+# Setup hub
+if [[ -n "$(which hub)" ]];
+then
+    alias git=hub
 fi
 
 # Use vim for syntax highlighting in less

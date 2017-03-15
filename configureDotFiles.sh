@@ -73,13 +73,19 @@ installFiles ".tmux.conf" "$HOME"
 installFiles ".tmux-osx.conf" "$HOME"
 
 # Setup tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+if [[ ! -d $HOME/.tmux/plugins/tpm ]];
+then
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
 
 # .ackrc
 installFiles ".ackrc" "$HOME"
 
 # .ctags
 installFiles ".ctags" "$HOME"
+
+# .tigrc
+installFiles ".tigrc" "$HOME"
 
 # rootLogon.h 
 installFiles "rootLogon.h" "$MYINSTALL/rootMacros"

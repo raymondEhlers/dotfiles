@@ -34,7 +34,7 @@ if !exists("c_no_cern_root")
 	syn keyword	cType	 TRotation TGenPhaseSpace TFeldmanCousins TRobustEstimator TRolke TQuaternion
 	syn keyword	cType	 TPostScript TSVG TPDF TImageDump THtml TColor TStyle TComplex TPRegexp
 	syn keyword	cType	 TObjArrayIter TMapIter TClass TEnv TGlobal TCint TROOT TDictionary TTime TTimer
-	syn keyword	cType	 Double_t Int_t Float_t Long_t Bool_t Byte_t
+	syn keyword	cType	 Double_t Int_t UInt_t Float_t Long_t Bool_t Byte_t
 	syn keyword	cType	 char_t Marker_t Double32_t Float16_t Long64_t
 	syn keyword	cType	 Short_t Stat_t Style_t Text_t UShort_t  
 	syn keyword	cConstant	 kRed kPink kBlue kMagenta kViolet kAzure kCyan kTeal kGreen kSpring kYellow kBlack kGray kWhite
