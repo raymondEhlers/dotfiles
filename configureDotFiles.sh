@@ -105,6 +105,9 @@ installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 # .ssh config
 installFiles "config" "$HOME/.ssh" ".ssh/config"
 
+# pandoc templates folder
+installFiles ".pandoc" "$HOME"
+
 # createNewProject (c++)
 if [[ $(uname -s) == "Darwin" ]];
 then
