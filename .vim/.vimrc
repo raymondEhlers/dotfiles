@@ -167,7 +167,10 @@ endif
 " Set tab settings for python, markdown, and latex
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 spell spelllang=en_us
+
+" Enable spell checking in tex and git commits
 autocmd Filetype tex setlocal spell spelllang=en_us
+autocmd Filetype gitcommit setlocal spell spelllang=en_us
 
 " Enable line numbers
 set number
