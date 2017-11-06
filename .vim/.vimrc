@@ -37,6 +37,14 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'majutsushi/tagbar'
 " Latex helper
 Plugin 'lervag/vimtex'
+" Improve vim markdown highlighting
+" (tabular) is required for the markdown highlighting
+"Plugin 'godlygeek/tabular'
+" Better markdown highlighting
+"Plugin 'plasticboy/vim-markdown'
+" Pandoc integration
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 " All are reasonable colorschemes
 " lapis
@@ -214,6 +222,15 @@ nnoremap k gk
 " Configure vimtex errors to ignore. These will also show up due to Debian and
 " OS X vim not being configured to include ClientServer
 let g:vimtex_echo_ignore_wait = 1
+
+" Configure markdown syntax highlighting
+" Math
+"let g:vim_markdown_math = 1
+" Highlight YAML at the top of the file
+"let g:vim_markdown_frontmatter = 1
+
+" Set the desired latex engine for vim-pandoc
+let g:pandoc#command#latex_engine = "pdflatex"
 
 " Remap leader to something easier to use
 let mapleader = " "

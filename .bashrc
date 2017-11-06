@@ -172,7 +172,7 @@ then
         source ~/.gnupg/.gpg-agent-info
         export GPG_AGENT_INFO
     else
-        eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+        eval $(gpg-agent --daemon)
     fi
 else
     # Only assign to ls on linux!
@@ -208,8 +208,8 @@ then
     # Load environment helper
     eval "`alienv shell-helper`"
 fi
-alias buildRoot5="aliBuild -z root5 -w ${ALICE_WORK_DIR} --defaults release --disable GEANT3,GEANT4_VMC build AliPhysics"
-alias buildRoot6="aliBuild -z root6 -w ${ALICE_WORK_DIR} --defaults root6 --disable GEANT3,GEANT4_VMC build AliPhysics"
+alias buildRoot5="aliBuild -z root5 -w ${ALICE_WORK_DIR} --defaults release --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
+alias buildRoot6="aliBuild -z root6 -w ${ALICE_WORK_DIR} --defaults root6 --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
 # Setup hub
 if [[ -n "$(which hub)" ]];
 then

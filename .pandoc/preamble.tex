@@ -37,11 +37,6 @@
     \end{frame}
 }
 
-% Pandoc / markdown specific
-% Handle column support in pandoc. See: https://github.com/jgm/pandoc/issues/1710#issuecomment-217168817
-\newcommand{\newCol}[1]{\begin{columns}[#1]}
-\newcommand{\stopCol}{\end{columns}}
-
 % Images
 \newcommand{\insertImage}[2]{\center{\frame{\includegraphics[width=#1]{images/#2}}}}
 
@@ -52,3 +47,6 @@
         \usebeamerfont{title}Backup\par%
     \end{beamercolorbox}%
     \vfill}
+
+% pt command so it doesn't break the highlighting
+\newcommand{\pt}{\ensuremath{p_{\mathrm{T}}}}

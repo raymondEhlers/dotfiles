@@ -1,0 +1,2 @@
+html|html -f markdown+smart --standalone --latexmathml=~/.pandoc/LaTeXMathML.js --css ~/.pandoc/LaTeXMathML.standardarticle.css --css ~/.pandoc/pandoc.css --toc
+beamer|beamer -H ~/.pandoc/preamble.tex

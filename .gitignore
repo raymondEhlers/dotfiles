@@ -12,3 +12,5 @@ serverAliases.sh
 
 # Ignore spelling binary file from vim
 *.spl
+
+.DS_Store
