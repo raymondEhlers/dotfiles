@@ -45,6 +45,10 @@ Plugin 'lervag/vimtex'
 " Pandoc integration
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
+" Send code to REPL
+Plugin 'jpalardy/vim-slime'
+" Julia support
+Plugin 'JuliaEditorSupport/julia-vim'
 
 " All are reasonable colorschemes
 " lapis
@@ -101,6 +105,9 @@ endif
 " Finish Vundle setup
 call vundle#end()
 filetype plugin indent on
+
+" Setup vim-slime
+let g:slime_target = "tmux"
 
 " Set backspace to work as expected.
 set backspace=indent,eol,start
@@ -231,6 +238,12 @@ let g:vimtex_echo_ignore_wait = 1
 
 " Set the desired latex engine for vim-pandoc
 let g:pandoc#command#latex_engine = "pdflatex"
+
+" Set pandoc formatting and textwidth
+" A is a smart autoformatting mode
+" 110 seems to be reasonable when using the main laptop screen
+let g:pandoc#formatting#mode = "hA"
+let g:pandoc#formatting#textwidth = 110
 
 " Remap leader to something easier to use
 let mapleader = " "
