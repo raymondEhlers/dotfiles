@@ -34,7 +34,8 @@ Plugin 'jiangmiao/auto-pairs'
 " As of 3-16-2016, it does not work because it forces a buffer redraw on every change
 "Plugin 'szw/vim-tags'
 " Tagbar to handle ctags in the lcoal file
-Plugin 'majutsushi/tagbar'
+" Leave tagbar disabled because it slows down powerline
+"Plugin 'majutsushi/tagbar'
 " Latex helper
 Plugin 'lervag/vimtex'
 " Improve vim markdown highlighting
