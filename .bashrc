@@ -144,6 +144,9 @@ addToPath "/usr/local/sbin"
 export GOPATH=$HOME/.go
 #addToPath "$GOPATH/bin"
 
+# Add bin for pip packages installed with `--user`
+addToPath "$(python -m site --user-base)/bin"
+
 # User specific aliases and functions
 # -l is long, -h is human readable sizes, -X is ordered by file type (ie alphabetical by folder, then file, etc), F adds additional decoration (/ after folder, * after executable, @ after symlinks, etc)
 lsColorOptions="--color=auto"
