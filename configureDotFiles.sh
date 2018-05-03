@@ -102,6 +102,9 @@ installFiles ".vim" "$HOME"
 # .vimrc
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
+# Powerline
+installFiles "powerline" "$HOME/.config"
+
 # .ssh config
 installFiles "config" "$HOME/.ssh" ".ssh/config"
 

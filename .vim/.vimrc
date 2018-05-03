@@ -109,6 +109,13 @@ filetype plugin indent on
 " Setup vim-slime
 let g:slime_target = "tmux"
 
+" Setup powerline
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+" Always show statusline
+set laststatus=2
+
 " Set backspace to work as expected.
 set backspace=indent,eol,start
 

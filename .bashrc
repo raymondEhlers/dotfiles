@@ -145,7 +145,8 @@ export GOPATH=$HOME/.go
 #addToPath "$GOPATH/bin"
 
 # Add bin for pip packages installed with `--user`
-addToPath "$(python -m site --user-base)/bin"
+pythonUserPrefix="$(python -m site --user-base)"
+addToPath "${pythonUserPrefix}/bin"
 
 # User specific aliases and functions
 # -l is long, -h is human readable sizes, -X is ordered by file type (ie alphabetical by folder, then file, etc), F adds additional decoration (/ after folder, * after executable, @ after symlinks, etc)
@@ -191,6 +192,17 @@ if [[ ! -f /etc/lsb-release || ! $(cat /etc/lsb-release | grep -i "mint") ]]; th
     export PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h \[$(tput setaf 4)\]\w \\$ \[$(tput sgr0)\]"
 fi
 
+# Enable powerline if available
+# Assumes that it is installed in the python user directory
+# NOTE: This will ignore the PS1
+#if [ -f ${pythonUserPrefix}/lib/python/site-packages/powerline/bindings/bash/powerline.sh  ]; then
+#    powerline-daemon -q
+#    POWERLINE_BASH_CONTINUATION=1
+#    POWERLINE_BASH_SELECT=1
+#    source ${pythonUserPrefix}/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+#fi
+
+# General aliases
 alias root="root -l"
 alias rootb="root -l -b -q"
 alias timeRoot="/usr/bin/time -v -a -o time.log root -l -b -q"
