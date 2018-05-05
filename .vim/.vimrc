@@ -50,6 +50,8 @@ Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'jpalardy/vim-slime'
 " Julia support
 Plugin 'JuliaEditorSupport/julia-vim'
+" Clang-format support
+Plugin 'rhysd/vim-clang-format'
 
 " All are reasonable colorschemes
 " lapis
@@ -254,8 +256,8 @@ let g:pandoc#formatting#mode = "hA"
 let g:pandoc#formatting#textwidth = 110
 
 " Remap leader to something easier to use
-let mapleader = " "
-"let mapleader = ";"
+"let mapleader = " "
+let mapleader = ";"
 
 " Remap the % key to something easier to hit
 " Matches parenthesis and brackets
@@ -318,6 +320,11 @@ endif
 autocmd BufNewFile,BufRead *.md,*.rst setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
 " Latex
 autocmd BufNewFile,BufRead *.tex setlocal makeprg=(pdflatex\ %)
+
+" Clang-format
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
 " Set the colorscheme
 " darkdot
