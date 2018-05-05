@@ -52,6 +52,7 @@ Plugin 'jpalardy/vim-slime'
 Plugin 'JuliaEditorSupport/julia-vim'
 " Clang-format support
 Plugin 'rhysd/vim-clang-format'
+Plugin 'kana/vim-operator-user'
 
 " All are reasonable colorschemes
 " lapis
@@ -325,6 +326,8 @@ autocmd BufNewFile,BufRead *.tex setlocal makeprg=(pdflatex\ %)
 " map to <Leader>cf in C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" Allow to use = with clang-format. See: https://vi.stackexchange.com/a/6536
+autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 
 " Set the colorscheme
 " darkdot
