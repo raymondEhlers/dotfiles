@@ -139,6 +139,8 @@ addToManPath "$MYINSTALL/share/man"
 addToLDLibraryPath "/usr/local/lib"
 addToPath "/usr/local/bin"
 addToPath "/usr/local/sbin"
+# Needed for ALICE software
+addToPath "/usr/local/opt/gettext/bin"
 
 # Setup GO lang
 export GOPATH=$HOME/.go
@@ -262,3 +264,14 @@ fi
 if [[ -d "$HOME/code/alice/data/OCDB" ]]; then
     export ALICE_OCDB="$HOME/code/alice/data/OCDB"
 fi
+
+# Possibility to use pyenv to set the python version
+# However, but it is not being used because it really slows down the prompt
+# Based on: https://github.com/pyenv/pyenv/issues/264#issuecomment-283768966
+#if [ -n "$(type -t pyenv)"  ] && [ "$(type -t pyenv)" = function  ]; then
+#    #    echo "pyenv is already initialized"
+#    true
+#else
+#    if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+#    if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+#fi
