@@ -7,8 +7,10 @@ option (as configured in the YAML metadata) via the following change:
 
 ```
 $if(author)$
-\author[$shortAuthor$]{$for(author)$$author$$sep$ \and $endfor$}
+\author$if(shortAuthor)$[$shortAuthor$]$endif${$for(author)$$author$$sep$ \and $endfor$}
 $endif$
 ```
+
+and to add the `subcaption` package with `\usepackage{subcaption}`
 
 Note that by naming the template `default.latex`, it will be picked up by default by `pandoc`.
