@@ -48,3 +48,20 @@
     \end{beamercolorbox}%
     \vfill}
 
+% Don't include backup slides in the slide count
+% appendixnumberbeamer doesn't work because you cannot add latex
+% between frames. See https://github.com/jgm/pandoc/issues/4403
+% I tried a number of different options, but the only one I could
+% could get to work is below and rather hacky...
+% Inspired by the first part of https://stackoverflow.com/a/2370399
+% NOTE: This effectively supersedes `\backupSlide{}`, but it is kept
+%       separately for backwards compatibility.
+\newcommand{\backupbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+   \backupSlide{}%
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}}
+}
