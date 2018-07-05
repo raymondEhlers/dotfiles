@@ -1,25 +1,44 @@
 % Packages
-\usetheme{yale} % Available at https://github.com/dfeng/yale-beamer , with modifications by Raymond Ehlers.
+%\usetheme{yale} % My fork is available at https://github.com/raymondEhlers/yale-beamer
 \usepackage{hyperref}
 \usepackage{tikz}
+\usetikzlibrary{positioning}
 
-% Define the appropriate logos
-% This is the small logo shown on most slides
-% Huge hack, but it will work until I updated the theme more extensively
-\logo{%
-	\usebeamerfont{progress}\usebeamercolor[fg]{progress} \insertshortauthor\ - \insertdate%
-}
-% This is the title logo
-\pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.pandoc/preamble/images/aliceLogo}
-\titlegraphic{
-	\begin{tikzpicture}
-		\node [scale=0.115] (aliceTitleLogo) {\pgfuseimage{beamerTitleLogoALICE}};
-		\node [anchor=west, xshift=2.5em] (yaleTitleLogo) {\pgfuseimage{beamerTitleLogoYale}};
-	\end{tikzpicture}
-}
-
+% Yale theme specific options
 % Can change background color to white for printing
 %\setbeamercolor{background canvas}{bg=white}
+% Define the appropriate logos
+%\logo{%
+%	\usebeamerfont{progress}\usebeamercolor[fg]{progress} \insertshortauthor\ - \insertdate%
+%}
+
+% This is the title logo
+% NOTE: This assumes the path to the file, but it is probably reasonable given
+%       that it is most likely to be used in conjunction with pandoc
+\pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.pandoc/preamble/images/aliceLogo}
+\pgfdeclareimage{beamerTitleLogoYale}{$HOME/.pandoc/preamble/images/yaleLogo}
+\titlegraphic{
+    \begin{tikzpicture}[remember picture,overlay]
+        % Position Yale logo relative to the ALICE logo.
+        \node [scale=0.115] (aliceTitleLogo) [above left= 1.25cm and 1.5cm of current page.south east] {\pgfuseimage{beamerTitleLogoALICE}};
+        \node [scale=0.250] (yaleTitleLogo) [left=0.15cm of aliceTitleLogo] {\pgfuseimage{beamerTitleLogoYale}};
+    \end{tikzpicture}
+}
+
+% Avoid showing a footer on the title slide.
+% Needed for the metropolis theme, which by default doesn't have a footer, so it doesn't address this issue.
+\setbeamertemplate{footline}{%
+    \ifnum \insertframenumber=1%
+      % There was no frame title
+    \else%
+      \begin{beamercolorbox}[wd=\textwidth, sep=2.5ex]{footline}%
+        \usebeamerfont{page number in head/foot}%
+        \usebeamertemplate*{frame footer}
+        \hfill%
+        \usebeamertemplate*{frame numbering}
+      \end{beamercolorbox}%
+    \fi%
+    }
 
 % Setting options
 % For drawing
@@ -38,7 +57,7 @@
 }
 
 % Images
-\newcommand{\insertImage}[2]{\center{\frame{\includegraphics[width=#1]{images/#2}}}}
+\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{images/#2}}}}
 
 % Backup separator
 \newcommand{\backupSlide}{\vfill%
@@ -56,12 +75,12 @@
 % Inspired by the first part of https://stackoverflow.com/a/2370399
 % NOTE: This effectively supersedes `\backupSlide{}`, but it is kept
 %       separately for backwards compatibility.
-\newcommand{\backupbegin}{
+\newcommand{\backupBegin}{
    \newcounter{framenumberappendix}
    \setcounter{framenumberappendix}{\value{framenumber}}
    \backupSlide{}%
 }
-\newcommand{\backupend}{
+\newcommand{\backupEnd}{
    \addtocounter{framenumberappendix}{-\value{framenumber}}
    \addtocounter{framenumber}{\value{framenumberappendix}}
 }
