@@ -11,6 +11,4 @@ $if(author)$
 $endif$
 ```
 
-and to add the `subcaption` package with `\usepackage{subcaption}`
-
 Note that by naming the template `default.latex`, it will be picked up by default by `pandoc`.
