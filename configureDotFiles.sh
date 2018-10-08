@@ -111,6 +111,9 @@ installFiles "config" "$HOME/.ssh" ".ssh/config"
 # pandoc templates folder
 installFiles ".pandoc" "$HOME"
 
+# pylint rc
+installFiles ".pylintrc" "$HOME"
+
 # createNewProject (c++)
 if [[ $(uname -s) == "Darwin" ]];
 then
