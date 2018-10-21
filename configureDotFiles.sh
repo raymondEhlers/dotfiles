@@ -103,6 +103,8 @@ installFiles ".vim" "$HOME"
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
 # Powerline
+# Create the directory if it doesn't exist
+mkdir -p "$HOME/.config"
 installFiles "powerline" "$HOME/.config"
 
 # .ssh config
