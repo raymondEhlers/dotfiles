@@ -142,6 +142,7 @@ disable=print-statement,
         comprehension-escape,
         C0326, # No spaces around keywaord argument assignment. I like how this reads.
         C0103, # Use snake case. I like camel case.
+        W1203, # Doesn't want f strings for debug info. This is just silly.
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
