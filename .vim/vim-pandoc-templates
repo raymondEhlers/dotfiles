@@ -1,3 +1,3 @@
-htmlBasic|html5 -f markdown+smart --verbose --standalone --toc --toc-depth=5 --section-divs --mathjax --css ~/.pandoc/LaTeXMathML.standardarticle.css --css ~/.pandoc/pandoc.css
-html|html5 -f markdown+smart --verbose --standalone --toc --toc-depth=5 --section-divs --mathjax --filter pandoc-crossref --lua-filter ~/.pandoc/lua-filters/task-list/task-list.lua --template ~/code/software/pandoc-uikit/standalone.html
+htmlBasic|html5 -f markdown+smart --verbose --standalone --toc --toc-depth=5 --section-divs --mathjax --css ~/.local/share/pandoc/LaTeXMathML.standardarticle.css --css ~/.local/share/pandoc/pandoc.css
+html|html5 -f markdown+smart --verbose --standalone --toc --toc-depth=5 --section-divs --mathjax --filter pandoc-crossref --lua-filter ~/.local/share/pandoc/lua-filters/task-list/task-list.lua --template ~/code/software/pandoc-uikit/standalone.html
 beamer|beamer -f markdown --verbose --standalone --pdf-engine-opt=-shell-escape

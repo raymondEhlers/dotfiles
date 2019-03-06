@@ -111,7 +111,7 @@ installFiles "powerline" "$HOME/.config"
 installFiles "config" "$HOME/.ssh" ".ssh/config"
 
 # pandoc templates folder
-installFiles ".pandoc" "$HOME"
+installFiles "pandoc" "$HOME/.local/share"
 
 # pylint rc
 installFiles ".pylintrc" "$HOME"
