@@ -17,11 +17,13 @@
 %       that it is most likely to be used in conjunction with pandoc
 \pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.local/share/pandoc/preamble/images/aliceLogo}
 \pgfdeclareimage{beamerTitleLogoYale}{$HOME/.local/share/pandoc/preamble/images/yaleLogo}
+\pgfdeclareimage{beamerTitleLogoWrightLab}{$HOME/.local/share/pandoc/preamble/images/wrightLab2Line}
 \titlegraphic{
     \begin{tikzpicture}[remember picture,overlay]
         % Position Yale logo relative to the ALICE logo.
         \node [scale=0.115] (aliceTitleLogo) [above left= 1.25cm and 1.5cm of current page.south east] {\pgfuseimage{beamerTitleLogoALICE}};
-        \node [scale=0.250] (yaleTitleLogo) [left=0.15cm of aliceTitleLogo] {\pgfuseimage{beamerTitleLogoYale}};
+        \node [scale=0.15] (wrightLabLogo) [left=-0.1cm of aliceTitleLogo] {\pgfuseimage{beamerTitleLogoWrightLab}};
+        \node [scale=0.260] (yaleTitleLogo) [left=-0.1cm of wrightLabLogo] {\pgfuseimage{beamerTitleLogoYale}};
     \end{tikzpicture}
 }
 
