@@ -14,3 +14,6 @@ serverAliases.sh
 *.spl
 
 .DS_Store
+
+# Temporary files
+*.swp
