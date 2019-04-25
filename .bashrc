@@ -215,9 +215,6 @@ alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
 # Weekly alias
 alias shit='fuck'
 # Experiment specific
-if [[ -e "$HOME/aliceSW/alice-env.sh" ]]; then
-    alias ali="source $HOME/aliceSW/alice-env.sh -n 1";
-fi
 # For aliBuild
 export ALICE_WORK_DIR="$HOME/alice/sw"
 if [[ -n "$(which alienv)" ]];
@@ -264,18 +261,6 @@ export alien_API_USER="rehlersi"
 # See: http://askubuntu.com/a/318746
 if [[ $BASH_VERSINFO == 4 ]]; then
     shopt -s direxpand
-fi
-
-# This has to be in a different function. If not, the alias will not yet be defined...
-# Only do this if aliBuild is not installed. Otherwise, it will interfere
-if [[ -e "$HOME/aliceSW/alice-env.sh" && -z "$(which alienv)" ]]; then
-    echo "Running alice-env.sh"
-    ali -q
-fi
-
-# Create OCDB variable necessary for proper usage of testtrain.sh
-if [[ -d "$HOME/code/alice/data/OCDB" ]]; then
-    export ALICE_OCDB="$HOME/code/alice/data/OCDB"
 fi
 
 # Possibility to use pyenv to set the python version
