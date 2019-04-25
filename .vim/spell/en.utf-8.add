@@ -310,3 +310,8 @@ infeasible
 SoftDrop
 Collinear
 overpredicts
+mypy
+IPython
+unnormalized
+seaborn
+iminuit
