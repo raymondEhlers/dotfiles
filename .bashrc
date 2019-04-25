@@ -227,6 +227,19 @@ then
 fi
 alias buildRoot5="aliBuild -z root5 -w ${ALICE_WORK_DIR} --defaults release --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
 alias buildRoot6="aliBuild -z root6 -w ${ALICE_WORK_DIR} --defaults root6 --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
+# Define the ALICE_DATA variable so OADB files can be found on CVMFS.
+# We define this in a function so that it's evaluated when called (so it can update the current shell)
+aliceData()
+{
+    let d=date;
+    if [[ -n "$(which gdate)" ]];
+    then
+        d=gdate;
+    fi
+    # We ideally want yesterday's date because today's tag many not yet be available.
+    # For getting that date, see https://stackoverflow.com/a/15374813
+    export ALICE_DATA="/cvmfs/alice.cern.ch/data/analysis/$($d +%Y)/vAN-$($d -d 'yesterday 13:00' '+%Y%m%d')/"
+}
 # Setup hub
 if [[ -n "$(which hub)" ]];
 then
