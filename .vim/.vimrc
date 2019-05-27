@@ -357,5 +357,5 @@ autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 "set cursorline
 "
 " lapis256
-colorscheme PaperColor
+colorscheme onedark
 set nocursorline
