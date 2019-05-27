@@ -243,6 +243,12 @@ then
     alias git=hub
 fi
 
+# Alias vim to nvim for convenience
+if [[ -n "$(which nvim)" ]];
+then
+    alias vim="nvim"
+fi
+
 # Use vim for syntax highlighting in less
 # This find should probably be perofmred more carefully, but it is fine for now, as I use less much less now
 VLESS=$(find /usr/share/vim -name 'less.sh')
