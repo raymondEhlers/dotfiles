@@ -24,6 +24,8 @@ Plug 'plytophogy/vim-virtualenv'
 " Tab completion
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
+" Needed for vim8 compatibility
+Plug 'roxma/vim-hug-neovim-rpc', !has('nvim') ? {} : { 'on': [] }
 " Word completion from the current buffer.
 Plug 'ncm2/ncm2-bufword'
 " Path completions relative to the current buffer location.
