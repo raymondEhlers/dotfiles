@@ -102,6 +102,19 @@ installFiles ".vim" "$HOME"
 # .vimrc
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
+# virtualenv for neovim
+if [[ -e $(which pip3) ]];
+then
+    if [[ ! -d "$PWD/.vim/venv" ]];
+    then
+        # Create virtualenv in the .vim directory and install the neovim python integration
+        echo "Creating python3 virtualenv for neovim"
+        # If pip3 exists, then python3 almost certainly exists
+        python3 -m venv "$PWD/.vim/venv"
+        pip3 install -r nvim-requirements.txt
+    fi
+fi
+
 # Powerline
 # Create the directory if it doesn't exist
 mkdir -p "$HOME/.config"

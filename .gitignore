@@ -17,3 +17,6 @@ serverAliases.sh
 
 # Temporary files
 *.swp
+
+# Virtual environments
+venv/
