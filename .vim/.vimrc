@@ -12,6 +12,9 @@ endif
 " Begin setup
 call plug#begin('~/.vim/plugged')
 " Setup plugins
+" Use Airline for status bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " Git support
 "Plug 'tpope/vim-fugitive'
 " Enables tab to complete
@@ -86,10 +89,10 @@ endif
 call plug#end()
 filetype plugin indent on
 
-" Setup powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+" Setup airline
+let g:airline_theme = 'powerlineish'
+" Use powerline fonts
+let g:airline_powerline_fonts = 1
 " Always show statusline
 set laststatus=2
 
@@ -111,9 +114,10 @@ set shellcmdflag=-ic
 " Tells vim to use 256 colors in the terminal. This may or may not be required based on the system
 set t_Co=256
 " Enable 24-bit color if available
-if (has("termguicolors"))
-    set termguicolors
-endif
+" This seems to break the colorscheme in nvim (as of May 2019), so we disable it for now.
+"if (has("termguicolors"))
+"    set termguicolors
+"endif
 
 " Enable syntax highlighting
 syntax on
