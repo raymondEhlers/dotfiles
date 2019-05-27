@@ -107,8 +107,13 @@ set background=dark
 " However, this is less than ideal, as it sends vim to the background. Run fg to return to vim.
 set shellcmdflag=-ic
 
+" Color settings
 " Tells vim to use 256 colors in the terminal. This may or may not be required based on the system
 set t_Co=256
+" Enable 24-bit color if available
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " Enable syntax highlighting
 syntax on
