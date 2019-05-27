@@ -2,86 +2,70 @@
 " when the defaults are changed.
 set nocompatible
 
-" Required for vundle
-filetype off
-
-" Download vundle if necessary
-" Based on: http://erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-let installedVundle=0
-if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
-    echo "Installing vundle"
-    echo ""
-    silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-    let installedVundle=1
+" Setup vim-plug
+" Install it if necessary
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
-" Sets the runtime path to invlude Vundle and initialize
-set runtimepath+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
+" Begin setup
+call plug#begin('~/.vim/plugged')
 " Setup plugins
-" Must have Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-
-" Other plugins
 " Git support
-"Plugin 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
 " Enables tab to complete
-Plugin 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 " Auto close pairs
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " Vim-tags to handle ctags generation
 " As of 3-16-2016, it does not work because it forces a buffer redraw on every change
-"Plugin 'szw/vim-tags'
+"Plug 'szw/vim-tags'
 " Tagbar to handle ctags in the lcoal file
 " Leave tagbar disabled because it slows down powerline
-"Plugin 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 " Latex helper
-Plugin 'lervag/vimtex'
+Plug 'lervag/vimtex'
 " Improve vim markdown highlighting
 " (tabular) is required for the markdown highlighting
-"Plugin 'godlygeek/tabular'
+"Plug 'godlygeek/tabular'
 " Better markdown highlighting
-"Plugin 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 " Pandoc integration
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
-" Send code to REPL
-Plugin 'jpalardy/vim-slime'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 " Julia support
-Plugin 'JuliaEditorSupport/julia-vim'
+"Plug 'JuliaEditorSupport/julia-vim'
 " Clang-format support
-Plugin 'rhysd/vim-clang-format'
-Plugin 'kana/vim-operator-user'
+Plug 'rhysd/vim-clang-format'
+Plug 'kana/vim-operator-user'
 
 " All are reasonable colorschemes
 " lapis
-Plugin 'andrwb/vim-lapis256'
+Plug 'andrwb/vim-lapis256'
 " elda
-Plugin 'lxmzhv/vim', {'name': 'elda'}
+"Plug 'lxmzhv/vim', {'name': 'elda'}
 " muon
-Plugin 'gregsexton/Muon'
+Plug 'gregsexton/Muon'
 " wolfpack
-Plugin 'carlson-erik/wolfpack'
+Plug 'carlson-erik/wolfpack'
 " darkSea
-Plugin 'atelierbram/vim-colors_duotones'
+Plug 'atelierbram/vim-colors_duotones'
 " Colorscheme tests!
 " OceanDeep
-"Plugin 'vim-scripts/oceandeep'
+"Plug 'vim-scripts/oceandeep'
 " kalisi-dark
-"Plugin 'freeo/vim-kalisi'
+"Plug 'freeo/vim-kalisi'
 " Wombat256
-"Plugin 'MPiccinato/wombat256'
+"Plug 'MPiccinato/wombat256'
 " peaksea
-"Plugin 'jlesquembre/peaksea'
+"Plug 'jlesquembre/peaksea'
 " flattr
-"Plugin 'blindFS/flattr.vim'
+"Plug 'blindFS/flattr.vim'
 " vt_tmux (pt_black)
-"Plugin 'yantze/pt_black'
+"Plug 'yantze/pt_black'
 
-" Determine which plugins to disable, if any. I am using the existance of a locally compiled git
-" as a proxy for if this is the ATLAS cluster where this is incompatible
-"if isdirectory(expand("$MYINSTALL/git/")) 
+" Some plugins need to be disabled on remote systems due to compatibility issues.
 if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01" || $HOME =~ "fas" || $HOME =~ "hep"
 	" Setup the colorscheme. 
 	" The cursor line looks terrible when the colors are not supported correctly
@@ -93,25 +77,14 @@ if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01" || $HOME =~ "fas" || $HOME =~
 	endtry
 else
 	" Only load when not on the above hosts
-	Plugin 'godlygeek/CSApprox'
-	Plugin 'Lokaltog/vim-easymotion'
-    Plugin 'mileszs/ack.vim'
-
+	Plug 'godlygeek/CSApprox'
+	Plug 'Lokaltog/vim-easymotion'
+    Plug 'mileszs/ack.vim'
 endif
 
-" Install plugins
-if installedVundle == 1
-    echo "Installing Vundles, please ignore key map error messages"
-    echo ""
-    :PluginInstall
-endif
-
-" Finish Vundle setup
-call vundle#end()
+" Finish vim-plug setup
+call plug#end()
 filetype plugin indent on
-
-" Setup vim-slime
-let g:slime_target = "tmux"
 
 " Setup powerline
 python from powerline.vim import setup as powerline_setup
@@ -135,7 +108,6 @@ set background=dark
 set shellcmdflag=-ic
 
 " Tells vim to use 256 colors in the terminal. This may or may not be required based on the system
-" However, it is necessary on the ATLAS cluster
 set t_Co=256
 
 " Enable syntax highlighting
@@ -194,7 +166,7 @@ endif
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 spell spelllang=en_us
 
-" Enable spell checking in tex and git commits
+" Enable spell checking in latex and git commits
 autocmd Filetype tex setlocal spell spelllang=en_us
 autocmd Filetype gitcommit setlocal spell spelllang=en_us
 
@@ -222,7 +194,7 @@ set showmatch
 set mat=2
 
 " Remove include from autocompletion search to avoid wasting time searching. Once a function is used once,
-" It will be rememberd
+" It will be remembered
 set complete-=i
 
 " Automatically writes the file if invoking make, change buffers, etc...

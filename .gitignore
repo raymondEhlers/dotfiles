@@ -2,8 +2,9 @@
 *.netrwhist
 *.bak
 
-# Ignore files in bundle folder except for Vundle
-bundle/
+# Ignore plugins managed by vim-plug
+.vim/autoload/
+.vim/plugged/
 
 # Ignore files which should not be commited.
 .gitconfig
