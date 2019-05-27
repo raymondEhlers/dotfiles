@@ -70,18 +70,18 @@ Plug 'atelierbram/vim-colors_duotones'
 
 " Some plugins need to be disabled on remote systems due to compatibility issues.
 if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01" || $HOME =~ "fas" || $HOME =~ "hep"
-	" Setup the colorscheme. 
-	" The cursor line looks terrible when the colors are not supported correctly
-	set nocursorline
-	try
-		colorscheme darkdotSnapshot
-	catch
-		colorscheme ron 
-	endtry
+    " Setup the colorscheme.
+    " The cursor line looks terrible when the colors are not supported correctly
+    set nocursorline
+    try
+        colorscheme darkdotSnapshot
+    catch
+        colorscheme ron
+    endtry
 else
-	" Only load when not on the above hosts
-	Plug 'godlygeek/CSApprox'
-	Plug 'Lokaltog/vim-easymotion'
+    " Only load when not on the above hosts
+    Plug 'godlygeek/CSApprox'
+    Plug 'Lokaltog/vim-easymotion'
     Plug 'mileszs/ack.vim'
 endif
 
@@ -288,15 +288,15 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " ^V = ctrl-v and <BS> is the backspace key (^? currently)
 " http://vimdoc.sourceforge.net/htmldoc/options.html#:fixdel
 if $NERSC_HOST == "pdsf" && $TMUX != ""
-	set t_kb=
+    set t_kb=
 endif
 
 " Set make command based on what files are available
 " First deal with C/C++
 if filereadable("../build/Makefile")
-	set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
+    set makeprg=(cd\ %:p:h\ &&\ cd\ ../build/\ &&\ make\ $*\ &&\ cd\ ../src/)
 "elseif filereadable("../train/rebuild.sh")
-"	set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
+"    set makeprg=(cd\ ../train/\ &&\ ./rebuild.sh\ &&\ cd\ ../rehlers/)
 endif
 " Now deal with markdown
 autocmd BufNewFile,BufRead *.md,*.rst setlocal makeprg=(pandoc\ --self-contained\ -S\ -c\ $HOME/.dotfiles/buttondown.css\ -o\ %<.html\ %)
