@@ -12,6 +12,7 @@ endif
 " Begin setup
 call plug#begin('~/.vim/plugged')
 " Setup plugins
+
 " Use Airline for status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -19,10 +20,28 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 " Virtualenv information
 Plug 'plytophogy/vim-virtualenv'
+
+" Tab completion
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+" Word completion from the current buffer.
+Plug 'ncm2/ncm2-bufword'
+" Path completions relative to the current buffer location.
+Plug 'ncm2/ncm2-path'
+" Grab words from other tmux panes. Note that `ncm2-tmux` does the same thing, but this
+" was the original project.
+Plug 'wellle/tmux-complete.vim'
+" Python
+Plug 'ncm2/ncm2-jedi'
+" C++
+Plug 'ncm2/ncm2-pyclang'
+" Markdown subscope detection
+Plug 'ncm2/ncm2-markdown-subscope'
+
 " Enables tab to complete
 "Plug 'ervandew/supertab'
 " Auto close pairs
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 " Vim-tags to handle ctags generation
 " As of 3-16-2016, it does not work because it forces a buffer redraw on every change
 "Plug 'szw/vim-tags'
@@ -97,6 +116,30 @@ let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
 " Always show statusline
 set laststatus=2
+
+" Setup ncm2
+" Enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" This will show the popup menu even if there's only one match (menuone),
+" prevent automatic selection (noselect) and prevent automatic text
+" injection into the current line (noinsert).
+set completeopt=noinsert,menuone,noselect
+" Clang path. Careful! This depends on the path on macOS.
+let g:ncm2_pyclang#library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
+" Allow use of jump to declaration
+autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+
+" Recommendations from the authro of ncm2:
+" Suppress 'match x of y', 'The only match' and 'Pattern not found' messages
+set shortmess+=c"'
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Set backspace to work as expected.
 set backspace=indent,eol,start
@@ -206,7 +249,7 @@ set mat=2
 
 " Remove include from autocompletion search to avoid wasting time searching. Once a function is used once,
 " It will be remembered
-set complete-=i
+"set complete-=i
 
 " Automatically writes the file if invoking make, change buffers, etc...
 set autowrite
@@ -263,18 +306,6 @@ nnoremap <leader>t :TagbarToggle<CR>
 " For more info, see: https://stackoverflow.com/a/5019111
 " Handled by vim-tags
 set tags+=./.git/tags;~
-
-" Auto completion via omnicomplete
-" Should be tested further
-" For more info, see: http://vim.wikia.com/wiki/C%2B%2B_code_completion
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 " Folding settings
 " http://smartic.us/2009/04/06/code-folding-in-vim/
