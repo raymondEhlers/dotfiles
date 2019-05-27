@@ -16,7 +16,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Git support
-"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
+" Virtualenv information
+Plug 'plytophogy/vim-virtualenv'
 " Enables tab to complete
 "Plug 'ervandew/supertab'
 " Auto close pairs
