@@ -62,9 +62,9 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
 " Better markdown highlighting
-"Plug 'plasticboy/vim-markdown'
 " (tabular) is required for the markdown highlighting
 "Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
 " Julia support
 "Plug 'JuliaEditorSupport/julia-vim'
 
