@@ -45,24 +45,28 @@ Plug 'ncm2/ncm2-markdown-subscope'
 " Vim-tags to handle ctags generation
 " As of 3-16-2016, it does not work because it forces a buffer redraw on every change
 "Plug 'szw/vim-tags'
-" Tagbar to handle ctags in the lcoal file
-" Leave tagbar disabled because it slows down powerline
-"Plug 'majutsushi/tagbar'
 " Latex helper
 Plug 'lervag/vimtex'
-" Improve vim markdown highlighting
-" (tabular) is required for the markdown highlighting
-"Plug 'godlygeek/tabular'
-" Better markdown highlighting
-"Plug 'plasticboy/vim-markdown'
+
+" Improve syntax highlighting
+" Python
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'Vimjas/vim-python-pep8-indent'
+" C++
+Plug 'vim-jp/vim-cpp'
+Plug 'octol/vim-cpp-enhanced-highlight'
 " Pandoc integration
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-" Julia support
-"Plug 'JuliaEditorSupport/julia-vim'
 " Clang-format support
 Plug 'rhysd/vim-clang-format'
 Plug 'kana/vim-operator-user'
+" Better markdown highlighting
+"Plug 'plasticboy/vim-markdown'
+" (tabular) is required for the markdown highlighting
+"Plug 'godlygeek/tabular'
+" Julia support
+"Plug 'JuliaEditorSupport/julia-vim'
 
 " All are reasonable colorschemes
 " lapis
@@ -75,6 +79,12 @@ Plug 'gregsexton/Muon'
 Plug 'carlson-erik/wolfpack'
 " darkSea
 Plug 'atelierbram/vim-colors_duotones'
+" night-owl
+Plug 'haishanh/night-owl.vim'
+" papercolor
+Plug 'NLKNguyen/papercolor-theme'
+" onedark
+Plug 'joshdick/onedark.vim'
 " Colorscheme tests!
 " OceanDeep
 "Plug 'vim-scripts/oceandeep'
@@ -101,7 +111,7 @@ if $NERSC_HOST == "pdsf" || $HOSTNAME == "atlas01" || $HOME =~ "fas" || $HOME =~
     endtry
 else
     " Only load when not on the above hosts
-    Plug 'godlygeek/CSApprox'
+    "Plug 'godlygeek/CSApprox'
     Plug 'Lokaltog/vim-easymotion'
     Plug 'mileszs/ack.vim'
 endif
@@ -298,9 +308,6 @@ nnoremap <leader>v V`]
 " http://tuxion.com/2011/09/30/vim-makeprg.html
 nnoremap <leader>b :!open %<.html &<CR><CR>
 
-" Open tagbar
-nnoremap <leader>t :TagbarToggle<CR>
-
 " Add to tags path so that it can find tags stored in .git/tags
 " It stops searching at the home directory ("~")
 " For more info, see: https://stackoverflow.com/a/5019111
@@ -350,5 +357,5 @@ autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 "set cursorline
 "
 " lapis256
-colorscheme lapis256
+colorscheme PaperColor
 set nocursorline
