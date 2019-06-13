@@ -228,7 +228,7 @@ alias buildRoot6="aliBuild -z root6 -w ${ALICE_WORK_DIR} --defaults root6 --disa
 # We define this in a function so that it's evaluated when called (so it can update the current shell)
 aliceData()
 {
-    let d=date;
+    d=date;
     if [[ -n "$(which gdate)" ]];
     then
         d=gdate;
