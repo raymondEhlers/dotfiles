@@ -16,10 +16,13 @@ call plug#begin('~/.vim/plugged')
 " Use Airline for status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Git support
+" Git support (needed for airline)
 Plug 'tpope/vim-fugitive'
-" Virtualenv information
+" Virtualenv information (needed for airline)
 Plug 'plytophogy/vim-virtualenv'
+
+" Linting
+Plug 'w0rp/ale'
 
 " Tab completion
 Plug 'ncm2/ncm2'
@@ -152,6 +155,15 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Configure ale
+" Ale
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
 
 " Set backspace to work as expected.
 set backspace=indent,eol,start
