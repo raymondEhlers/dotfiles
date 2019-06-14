@@ -34,8 +34,9 @@ Plug 'ncm2/ncm2-bufword'
 " Path completions relative to the current buffer location.
 Plug 'ncm2/ncm2-path'
 " Grab words from other tmux panes. Note that `ncm2-tmux` does the same thing, but this
-" was the original project.
-Plug 'wellle/tmux-complete.vim'
+" was the original project. This is really cool and convenient, but it seems to really
+" slow down vim :-( So it's disabled for now
+"Plug 'wellle/tmux-complete.vim'
 " Python
 Plug 'ncm2/ncm2-jedi'
 " C++
