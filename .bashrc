@@ -3,7 +3,7 @@
 . "$HOME/.dotfiles/serverAliases.sh"
 
 # Functions
-# Inspired by http://superuser.com/a/39995 
+# Inspired by http://superuser.com/a/39995
 addToEnvironmentVariables()
 {
     if [[ -z "$2" ]];
@@ -270,16 +270,13 @@ if [[ $BASH_VERSINFO == 4 ]]; then
     shopt -s direxpand
 fi
 
-# Possibility to use pyenv to set the python version
-# However, but it is not being used because it really slows down the prompt
-# Based on: https://github.com/pyenv/pyenv/issues/264#issuecomment-283768966
-#if [ -n "$(type -t pyenv)"  ] && [ "$(type -t pyenv)" = function  ]; then
-#    #    echo "pyenv is already initialized"
-#    true
-#else
-#    if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-#    if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-#fi
+# pyenv (for linux)
+if [[ $(uname -s) != "Darwin" ]];
+then
+    if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init -)"
+    fi
+fi
 
 # added by travis gem
 [ -f /Users/re239/.travis/travis.sh ] && source /Users/re239/.travis/travis.sh
