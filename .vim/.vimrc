@@ -22,7 +22,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'plytophogy/vim-virtualenv'
 
 " Linting
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 
 " Tab completion
 Plug 'ncm2/ncm2'
@@ -73,6 +73,8 @@ Plug 'kana/vim-operator-user'
 "Plug 'plasticboy/vim-markdown'
 " Julia support
 "Plug 'JuliaEditorSupport/julia-vim'
+" TOML synatx highlighting
+Plug 'cespare/vim-toml'
 
 " All are reasonable colorschemes
 " lapis
@@ -159,12 +161,12 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Configure ale
 " Ale
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8']}
+"let g:ale_lint_on_enter = 0
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"let g:ale_linters = {'python': ['flake8']}
 
 " Set backspace to work as expected.
 set backspace=indent,eol,start
@@ -300,6 +302,8 @@ let g:vimtex_echo_ignore_wait = 1
 
 " Set the desired latex engine for vim-pandoc
 let g:pandoc#command#latex_engine = "pdflatex"
+" Set the template file location
+" let g:pandoc#command#templates_file = 
 
 " Set pandoc formatting and textwidth
 " A is a smart autoformatting mode

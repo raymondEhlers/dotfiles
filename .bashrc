@@ -149,6 +149,7 @@ export GOPATH=$HOME/.go
 # Add bin for pip packages installed with `--user`
 pythonUserPrefix="$(python -m site --user-base)"
 addToPath "${pythonUserPrefix}/bin"
+alias poetryShell='source "$(dirname $(poetry run which python))/activate"'
 
 # User specific aliases and functions
 # -l is long, -h is human readable sizes, -X is ordered by file type (ie alphabetical by folder, then file, etc), F adds additional decoration (/ after folder, * after executable, @ after symlinks, etc)
