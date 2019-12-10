@@ -87,10 +87,10 @@ installFiles ".ctags" "$HOME"
 # .tigrc
 installFiles ".tigrc" "$HOME"
 
-# rootLogon.h 
+# rootLogon.h
 installFiles "rootLogon.h" "$MYINSTALL/rootMacros"
 
-# retreiveObjects.h 
+# retreiveObjects.h
 installFiles "retrieveObjects.h" "$MYINSTALL/rootMacros"
 
 # readableStyle.h
@@ -102,16 +102,19 @@ installFiles ".vim" "$HOME"
 # .vimrc
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
+# neovim config
+installFiles ".vim" "$HOME/.config"
+
 # virtualenv for neovim
-if [[ -e $(which pip3) ]];
+if [[ -e $(which python3) ]];
 then
-    if [[ ! -d "$PWD/.vim/venv" ]];
+    if [[ ! -d "$HOME/.vim/venv" ]];
     then
         # Create virtualenv in the .vim directory and install the neovim python integration
         echo "Creating python3 virtualenv for neovim"
         # If pip3 exists, then python3 almost certainly exists
-        python3 -m venv "$PWD/.vim/venv"
-        pip3 install -r nvim-requirements.txt
+        python3 -m venv "$HOME/.vim/venv"
+        ${HOME}/.vim/venv/bin/pip3 install -r nvim-requirements.txt
     fi
 fi
 
@@ -141,6 +144,6 @@ installFiles "newCppProject" "$MYINSTALL/bin" "createNewProject/createNewProject
 
 # Remove .dotFilesBak if it is empty
 if find "$HOME/.dotFilesBak" -maxdepth 0 -empty | read; then
-	rmdir "$HOME/.dotFilesBak"
+    rmdir "$HOME/.dotFilesBak"
 fi
 
