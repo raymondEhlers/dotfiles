@@ -53,6 +53,10 @@ else
 	exit 1
 fi
 
+# Create the .config directory if it doesn't exist, since it's used by a variety of
+# config files.
+mkdir -p "$HOME/.config"
+
 # .bashrc
 installFiles ".bashrc$extension" "$HOME" ".bashrc"
 source "$HOME/.bashrc$extension"
@@ -119,8 +123,6 @@ then
 fi
 
 # Powerline
-# Create the directory if it doesn't exist
-mkdir -p "$HOME/.config"
 installFiles "powerline" "$HOME/.config"
 
 # .ssh config
