@@ -147,7 +147,7 @@ export GOPATH=$HOME/.go
 #addToPath "$GOPATH/bin"
 
 # Add bin for pip packages installed with `--user`
-pythonUserPrefix="$(python -m site --user-base)"
+pythonUserPrefix="$(python3 -m site --user-base)"
 addToPath "${pythonUserPrefix}/bin"
 # See https://github.com/sdispater/poetry/issues/571#issuecomment-473438295
 alias poetryShell='source "$(poetry env info --path)/bin/activate"'
@@ -218,14 +218,14 @@ alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
 alias shit='fuck'
 # Experiment specific
 # For aliBuild
-export ALICE_WORK_DIR="$HOME/alice/sw"
+export ALIBUILD_WORK_DIR="$HOME/alice/sw"
 if [[ -n "$(which alienv)" ]];
 then
     # Load environment helper
     eval "`alienv shell-helper`"
 fi
-alias buildRoot5="aliBuild -z root5 -w ${ALICE_WORK_DIR} --defaults release --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
-alias buildRoot6="aliBuild -z root6 -w ${ALICE_WORK_DIR} --defaults root6 --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
+alias buildRoot5="aliBuild -z root5 -w ${ALIBUILD_WORK_DIR} --defaults release --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
+alias buildRoot6="aliBuild -z root6 -w ${ALIBUILD_WORK_DIR} --defaults root6 --disable DPMJET,GEANT3,GEANT4_VMC build AliPhysics"
 # Define the ALICE_DATA variable so OADB files can be found on CVMFS.
 # We define this in a function so that it's evaluated when called (so it can update the current shell)
 aliceData()
@@ -277,6 +277,11 @@ then
     if command -v pyenv 1>/dev/null 2>&1; then
       eval "$(pyenv init -)"
     fi
+fi
+
+# Add git bash completion. See: https://apple.stackexchange.com/a/55886
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
 fi
 
 # added by travis gem
