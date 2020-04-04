@@ -342,7 +342,8 @@ intrajet
 unbinned
 DataFrames
 subjet
-JaggedArrays
 subjets
+JaggedArrays
 Nima
 reclustering
+namespace
