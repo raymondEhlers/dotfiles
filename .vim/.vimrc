@@ -52,7 +52,7 @@ Plug 'ncm2/ncm2-markdown-subscope'
 " As of 3-16-2016, it does not work because it forces a buffer redraw on every change
 "Plug 'szw/vim-tags'
 " Latex helper
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 
 " Improve syntax highlighting
 " Python
@@ -147,7 +147,7 @@ let g:ncm2_pyclang#library_path = '/Applications/Xcode.app/Contents/Developer/To
 " Allow use of jump to declaration
 autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 
-" Recommendations from the authro of ncm2:
+" Recommendations from the author of ncm2:
 " Suppress 'match x of y', 'The only match' and 'Pattern not found' messages
 set shortmess+=c"'
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
@@ -303,7 +303,7 @@ let g:vimtex_echo_ignore_wait = 1
 " Set the desired latex engine for vim-pandoc
 let g:pandoc#command#latex_engine = "pdflatex"
 " Set the template file location
-" let g:pandoc#command#templates_file = 
+" let g:pandoc#command#templates_file =
 
 " Set pandoc formatting and textwidth
 " A is a smart autoformatting mode
@@ -368,6 +368,9 @@ autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " Allow to use = with clang-format. See: https://vi.stackexchange.com/a/6536
 autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
+
+" Disable ctrl-a incrementing, as it can interfere with tmux
+map <C-a> <Nop>
 
 " Set the colorscheme
 " darkdot
