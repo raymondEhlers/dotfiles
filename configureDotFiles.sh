@@ -61,6 +61,9 @@ mkdir -p "$HOME/.config"
 installFiles ".bashrc$extension" "$HOME" ".bashrc"
 source "$HOME/.bashrc$extension"
 
+# .zshrc
+installFiles ".zshrc" "$HOME"
+
 # .gitconfig
 installFiles ".gitconfig" "$HOME"
 
