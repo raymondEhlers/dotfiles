@@ -116,6 +116,16 @@ export EDITOR="vim"
 # zsh
 # Do not store duplications
 setopt HIST_IGNORE_DUPS
+# Enable vi key bindings
+bindkey -v
+# Add a few more keybindings for convenience (ie. emacs ones which I'm used to).
+# NOTE: The bindings themselves don't appear to be case sensitive.
+# ctrl-r for reverse search
+bindkey '^R' history-incremental-search-backward
+# ctrl-a to jump to the start of the line
+bindkey '^A' vi-beginning-of-line
+# ctrl-e to jump to the end of the line.
+bindkey '^E' vi-end-of-line
 # ls
 # Options for ls:
 #   -l is long,
