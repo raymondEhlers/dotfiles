@@ -59,6 +59,25 @@ refreshTmuxDisplay()
     fi
 }
 
+notifyDone()
+{
+    if [[ -n "$1" ]]; then
+        # Take the message that was passed in.
+        message="$1"
+    else
+        # Support piping in the message.
+        message=""
+        while read data; do
+            if [[ -n "$message" ]]; then
+                message=", ${message}"
+            else
+                message="$data"
+            fi
+        done
+    fi
+    terminal-notifier -title "Job done" -message "${message}" -activate "com.googlecode.iterm2" -sound Purr
+}
+
 # Configuration
 if [[ $NERSC_HOST == "pdsf" ]]; then
     # ALICE
@@ -219,7 +238,7 @@ alias shit='fuck'
 # Experiment specific
 # For aliBuild
 export ALIBUILD_WORK_DIR="$HOME/alice/sw"
-if [[ -n "$(which alienv)" ]];
+if [[ -n "$(which alienv &> /dev/null)" ]];
 then
     # Load environment helper
     eval "`alienv shell-helper`"
