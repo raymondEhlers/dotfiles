@@ -186,8 +186,7 @@ alias tmux="tmux -2"
 alias tm="tmux attach-session || tmux new"
 # Vim
 # Use nvim implace of vim when available.
-if [[ -n "$(which nvim &> /dev/null)" ]];
-then
+if command -v nvim &> /dev/null; then
     alias vim="nvim"
 fi
 # Use vim for syntax highlighting in less. This find should probably be perofmred more
@@ -197,8 +196,7 @@ if [[ ! -z $VLESS ]]; then
     alias less=$VLESS
 fi
 # git / hub
-if [[ -n "$(which hub)" ]];
-then
+if command -v hub &> /dev/null; then
     alias git="hub"
 fi
 # ROOT
@@ -209,8 +207,7 @@ alias rootb="root -l -b -q"
 export alien_API_USER="rehlersi"
 # For aliBuild
 export ALIBUILD_WORK_DIR="${HOME}/alice/sw"
-if [[ -n "$(which alienv &> /dev/null)" ]];
-then
+if command -v alienv &> /dev/null; then
     # Load environment helper
     eval "`alienv shell-helper`"
 fi
@@ -219,8 +216,7 @@ fi
 aliceData()
 {
     d=date;
-    if [[ -n "$(which gdate &> /dev/null)" ]];
-    then
+    if command -v gdate &> /dev/null; then
         d=gdate;
     fi
     # We ideally want yesterday's date because today's tag many not yet be available.
