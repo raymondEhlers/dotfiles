@@ -106,7 +106,7 @@ fi
 pythonUserPrefix="$(python3 -m site --user-base)"
 addToPath "${pythonUserPrefix}/bin"
 # Pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
+if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
 fi
 # Poetry
@@ -227,6 +227,23 @@ aliceData()
     # We ideally want yesterday's date because today's tag many not yet be available.
     # For getting that date, see https://stackoverflow.com/a/15374813
     export ALICE_DATA="/cvmfs/alice.cern.ch/data/analysis/$($d +%Y)/vAN-$($d -d 'yesterday 13:00' '+%Y%m%d')/"
+}
+# Helper for the cluster
+aliLoad()
+{
+    version="AliPhysics/latest"
+    if [[ -n "$1" ]]; then
+        version="$1"
+    fi
+    # Load the environment
+    echo "Loeading ${version}..."
+    alienv load "${version}"
+    # Work around missing python library (due to AliBuild bug?? Unclear).
+    # NOTE: Unfortunately, `pyenv version-name` gives the current python version rather than
+    #       the pyenv version in that directory. So we extract it based on the .python-version
+    #       in the alice directory.
+    pythonVersion=$(cat ${ALIBUILD_WORK_DIR}/../.python-version)
+    addToLDLibraryPath "${PYENV_ROOT}/versions/${pythonVersion}/lib"
 }
 
 # Add git zsh completion. Apparently it's rather different than bash...
