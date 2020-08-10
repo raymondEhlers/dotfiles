@@ -4,28 +4,16 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
-% Yale theme specific options
-% Can change background color to white for printing
-%\setbeamercolor{background canvas}{bg=white}
-% Define the appropriate logos
-%\logo{%
-%	\usebeamerfont{progress}\usebeamercolor[fg]{progress} \insertshortauthor\ - \insertdate%
-%}
-
 % This is the title logo
 % NOTE: This assumes the path to the file, but it is probably reasonable given
 %       that it is most likely to be used in conjunction with pandoc
 \pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.local/share/pandoc/preamble/images/aliceLogo}
 \pgfdeclareimage{beamerTitleLogoORNL}{$HOME/.local/share/pandoc/preamble/images/ORNL}
+\pgfdeclareimage{beamerTitleLogoUTK}{$HOME/.local/share/pandoc/preamble/images/UTKnoxvilleLogoLeft}
 \pgfdeclareimage{beamerTitleLogoYale}{$HOME/.local/share/pandoc/preamble/images/yaleLogo}
 \pgfdeclareimage{beamerTitleLogoWrightLab}{$HOME/.local/share/pandoc/preamble/images/wrightLab2Line}
-\titlegraphic{
-    \begin{tikzpicture}[remember picture,overlay]
-        % Position Yale logo relative to the ALICE logo.
-        \node [scale=0.115] (aliceTitleLogo) [above left= 1.25cm and 1.5cm of current page.south east] {\pgfuseimage{beamerTitleLogoALICE}};
-        \node [scale=0.05] (ORNLTitleLogo) [left=0.15cm of aliceTitleLogo] {\pgfuseimage{beamerTitleLogoORNL}};
-    \end{tikzpicture}
-}
+% NOTE: The titlegraphic is defined in each document's header. This way, we can vary the logos more easily there.
+%       We just need to enumerate the logos here.
 
 % Avoid showing a footer on the title slide.
 % Needed for the metropolis theme, which by default doesn't have a footer, so it doesn't address this issue.
@@ -65,28 +53,3 @@
 % Images
 \newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{images/#2}}}}
 
-% Backup separator
-\newcommand{\backupSlide}{\vfill%
-    \centering%
-    \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}%
-        \usebeamerfont{title}Backup\par%
-    \end{beamercolorbox}%
-    \vfill}
-
-% Don't include backup slides in the slide count
-% appendixnumberbeamer doesn't work because you cannot add latex
-% between frames. See https://github.com/jgm/pandoc/issues/4403
-% I tried a number of different options, but the only one I could
-% could get to work is below and rather hacky...
-% Inspired by the first part of https://stackoverflow.com/a/2370399
-% NOTE: This effectively supersedes `\backupSlide{}`, but it is kept
-%       separately for backwards compatibility.
-\newcommand{\backupBegin}{
-   \newcounter{framenumberappendix}
-   \setcounter{framenumberappendix}{\value{framenumber}}
-   \backupSlide{}%
-}
-\newcommand{\backupEnd}{
-   \addtocounter{framenumberappendix}{-\value{framenumber}}
-   \addtocounter{framenumber}{\value{framenumberappendix}}
-}
