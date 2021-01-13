@@ -76,8 +76,9 @@ installFiles ".screenrc" "$HOME"
 # .tmux.conf
 installFiles ".tmux.conf" "$HOME"
 
-# .tmux-osx.conf
+# tmux OS specific files
 installFiles ".tmux-osx.conf" "$HOME"
+installFiles ".tmux-linux.conf" "$HOME"
 
 # Setup tmux plugin manager
 if [[ ! -d $HOME/.tmux/plugins/tpm ]];
@@ -110,7 +111,7 @@ installFiles ".vim" "$HOME"
 installFiles ".vimrc" "$HOME" ".vim/.vimrc"
 
 # neovim config
-installFiles ".vim" "$HOME/.config"
+installFiles "nvim" "$HOME/.config"
 
 # virtualenv for neovim
 if [[ -e $(which python3) ]];

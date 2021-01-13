@@ -161,9 +161,12 @@ addToPath "/usr/local/sbin"
 # Needed for ALICE software
 addToPath "/usr/local/opt/gettext/bin"
 
-# Setup GO lang
-export GOPATH=$HOME/.go
-#addToPath "$GOPATH/bin"
+# Setup go
+# It's fairly likely that go will be installed in /usr/local/go, so we assume that here.
+if [[ -d "/usr/local/go" ]];
+then
+    addToPath "/usr/local/go/bin"
+fi
 
 # Add bin for pip packages installed with `--user`
 pythonUserPrefix="$(python3 -m site --user-base)"
@@ -293,6 +296,7 @@ fi
 # pyenv (for linux)
 if [[ $(uname -s) != "Darwin" ]];
 then
+    addToPath "$HOME/.pyenv/bin"
     if command -v pyenv 1>/dev/null 2>&1; then
       eval "$(pyenv init -)"
     fi
