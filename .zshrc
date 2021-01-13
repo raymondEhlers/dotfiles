@@ -72,6 +72,8 @@ notifyDone()
             fi
         done
     fi
+    # Extract command name like this:
+    #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
     terminal-notifier -title "Job done" -message "${message}" -activate "com.googlecode.iterm2" -sound Purr
 }
 
@@ -109,6 +111,9 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 # Poetry
 addToPath "${HOME}/.poetry/bin"
+# Go
+# It's fairly likely that go will be installed in /usr/local/go, so we assume that here.
+addToPath "/usr/local/go/bin"
 
 # Options
 # General

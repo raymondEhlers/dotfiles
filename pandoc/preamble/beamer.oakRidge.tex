@@ -10,6 +10,7 @@
 \pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.local/share/pandoc/preamble/images/aliceLogo}
 \pgfdeclareimage{beamerTitleLogoORNL}{$HOME/.local/share/pandoc/preamble/images/ORNL}
 \pgfdeclareimage{beamerTitleLogoUTK}{$HOME/.local/share/pandoc/preamble/images/UTKnoxvilleLogoLeft}
+\pgfdeclareimage{beamerTitleLogoJetscape}{$HOME/.local/share/pandoc/preamble/images/jetscapeLogo}
 \pgfdeclareimage{beamerTitleLogoYale}{$HOME/.local/share/pandoc/preamble/images/yaleLogo}
 \pgfdeclareimage{beamerTitleLogoWrightLab}{$HOME/.local/share/pandoc/preamble/images/wrightLab2Line}
 % NOTE: The titlegraphic is defined in each document's header. This way, we can vary the logos more easily there.
@@ -51,5 +52,5 @@
 }
 
 % Images
-\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{images/#2}}}}
+\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{#2}}}}
 
