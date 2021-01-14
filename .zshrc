@@ -109,6 +109,9 @@ addToPath "${pythonUserPrefix}/bin"
 if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
 fi
+# Add bin for pip packages installed with `--user`
+pythonUserPrefix="$(python3 -m site --user-base)"
+addToPath "${pythonUserPrefix}/bin"
 # Poetry
 addToPath "${HOME}/.poetry/bin"
 # Go
@@ -119,8 +122,14 @@ addToPath "/usr/local/go/bin"
 # General
 export EDITOR="vim"
 # zsh
+# history options
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+# Write to the history file immediately, not when the shell exits.
+setopt INC_APPEND_HISTORY
 # Do not store duplications
-setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 # Enable vi key bindings
 bindkey -v
 # Add a few more keybindings for convenience (ie. emacs ones which I'm used to).
@@ -236,7 +245,7 @@ aliLoad()
         version="$1"
     fi
     # Load the environment
-    echo "Loeading ${version}..."
+    echo "Loading ${version}..."
     alienv load "${version}"
     # Work around missing python library (due to AliBuild bug?? Unclear).
     # NOTE: Unfortunately, `pyenv version-name` gives the current python version rather than
