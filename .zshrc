@@ -224,6 +224,29 @@ if command -v alienv &> /dev/null; then
     # Load environment helper
     eval "`alienv shell-helper`"
 fi
+# If we're on Debian, we always need to set the architecture. So we redefine the command when appropriate.
+# For now, we'll grab the architecture name from the AliBuild dir so we don't have to map versions.
+if command -v lsb_release &> /dev/null; then
+    if [[ "Debian" == "$(lsb_release -si)" ]]; then
+        additionalOptions=""
+        for p in ${ALIBUILD_WORK_DIR}/*; do
+            # We want just the dir name, not the whole path
+            d=$(basename ${p})
+            if [[ "${d}" ==  *"ubuntu"* ]]; then
+                # Once we've found the architecture, we can continue.
+                # There will be only one Ubuntu directory.
+                additionalOptions="--architecture ${d}"
+                break
+            fi
+        done
+        if [[ ! -z "${additionalOptions}" ]]; then
+            # NOTE: If we are defining alienv with the architecture not using this alias, then we need to
+            #       explicitly split the arguments using the "=" option: ie. ${=additionalOptions}. This is
+            #       the opposite of bash.
+            alias alienv="alienv ${additionalOptions}"
+        fi
+    fi
+fi
 # Define the ALICE_DATA variable so OADB files can be found on CVMFS.
 # We define this in a function so that it's evaluated when called (so it can update the current shell)
 aliceData()
@@ -238,7 +261,7 @@ aliceData()
 }
 # Helper for using AliBuild with pyenv on linux.
 # It should also work on macOS, but it isn't required.
-aliLoad()
+aliload()
 {
     # Specify AliPhysics as the default version
     version="AliPhysics/latest"
@@ -246,8 +269,8 @@ aliLoad()
         version="$1"
     fi
     # Load the environment
-    echo "Loading ${version}..."
-    alienv load "${version}"
+    # alienv will report what is being loaded, so we don't need to it ourselves
+    eval `alienv load "${version}"`
     # Work around missing python library (due to AliBuild bug?? Unclear). It seems likely that
     # it's due to AliBuild ignoring the rpath specified in python on linux (but it follows it
     # on macOS). In any case, we can resolve it by adding explicitly to the LD_LIBRARY_PATH.
