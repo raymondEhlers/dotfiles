@@ -234,8 +234,8 @@ endfun
 " Calls the functions when buffers are processed.
 " (I think) this relies on the fact that the buffer is set to save when vim
 " switches to another buffer.
-autocmd BufReadPost,BufWritePost  */AliPhysics/*,*/AliRoot/*,*/code/alice/*,*/code/ML/* silent call DoubleWhitespace()
-autocmd BufWritePre               */AliPhysics/*,*/AliRoot/*,*/code/alice/*,*/code/ML/* silent call HalfWhitespace()
+autocmd BufReadPost,BufWritePost  */AliPhysics/*,*/AliRoot/*,*/O2/*,*/code/alice/*,*/code/ML/* silent call DoubleWhitespace()
+autocmd BufWritePre               */AliPhysics/*,*/AliRoot/*,*/O2/*,*/code/alice/*,*/code/ML/* silent call HalfWhitespace()
 
 " Return to previous line that was being edited See: http://stackoverflow.com/a/774599
 if has("autocmd")
