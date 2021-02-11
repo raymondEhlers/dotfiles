@@ -224,8 +224,9 @@ if command -v alienv &> /dev/null; then
     # Load environment helper
     eval "`alienv shell-helper`"
 fi
-# If we're on Debian, we always need to set the architecture. So we redefine the command when appropriate.
-# For now, we'll grab the architecture name from the AliBuild dir so we don't have to map versions.
+# If we're on Debian, we always need to set the architecture. So we redefine the aliBuild and alienv
+# commands when appropriate. For now, we'll grab the architecture name from the AliBuild dir so we
+# don't have to map names to Ubuntu versions.
 if command -v lsb_release &> /dev/null; then
     if [[ "Debian" == "$(lsb_release -si)" ]]; then
         additionalOptions=""
@@ -243,6 +244,7 @@ if command -v lsb_release &> /dev/null; then
             # NOTE: If we are defining alienv with the architecture not using this alias, then we need to
             #       explicitly split the arguments using the "=" option: ie. ${=additionalOptions}. This is
             #       the opposite of bash.
+            alias aliBuild="aliBuild ${additionalOptions}"
             alias alienv="alienv ${additionalOptions}"
         fi
     fi
