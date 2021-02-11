@@ -102,10 +102,9 @@ fi
 
 # Language specific setup
 # Python
-# Add bin for pip packages installed with `--user`
-pythonUserPrefix="$(python3 -m site --user-base)"
-addToPath "${pythonUserPrefix}/bin"
-# Pyenv
+# Pyenv (must go before retrieving the user-base path)
+export PYENV_ROOT="$HOME/.pyenv"
+addToPath "${PYENV_ROOT}/bin"
 if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
 fi
@@ -132,7 +131,7 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 # Enable vi key bindings
 bindkey -v
-# Add a few more keybindings for convenience (ie. emacs ones which I'm used to).
+# Add a few more key bindings for convenience (ie. emacs ones which I'm used to).
 # NOTE: The bindings themselves don't appear to be case sensitive.
 # ctrl-r for reverse search
 bindkey '^R' history-incremental-search-backward
@@ -203,7 +202,7 @@ alias tm="tmux attach-session || tmux new"
 if command -v nvim &> /dev/null; then
     alias vim="nvim"
 fi
-# Use vim for syntax highlighting in less. This find should probably be perofmred more
+# Use vim for syntax highlighting in less. This find should probably be performed more
 # carefully, but it is fine for now, as I use less much less now
 VLESS=$(find /usr/share/vim -name 'less.sh')
 if [[ ! -z $VLESS ]]; then
@@ -220,7 +219,7 @@ alias rootb="root -l -b -q"
 # ALICE specific settings
 export alien_API_USER="rehlersi"
 # For aliBuild
-export ALIBUILD_WORK_DIR="${HOME}/alice/sw"
+export ALIBUILD_WORK_DIR="/opt/thielsen/rehlers/software/alice/sw"
 if command -v alienv &> /dev/null; then
     # Load environment helper
     eval "`alienv shell-helper`"
@@ -237,9 +236,11 @@ aliceData()
     # For getting that date, see https://stackoverflow.com/a/15374813
     export ALICE_DATA="/cvmfs/alice.cern.ch/data/analysis/$($d +%Y)/vAN-$($d -d 'yesterday 13:00' '+%Y%m%d')/"
 }
-# Helper for the cluster
+# Helper for using AliBuild with pyenv on linux.
+# It should also work on macOS, but it isn't required.
 aliLoad()
 {
+    # Specify AliPhysics as the default version
     version="AliPhysics/latest"
     if [[ -n "$1" ]]; then
         version="$1"
@@ -247,12 +248,20 @@ aliLoad()
     # Load the environment
     echo "Loading ${version}..."
     alienv load "${version}"
-    # Work around missing python library (due to AliBuild bug?? Unclear).
-    # NOTE: Unfortunately, `pyenv version-name` gives the current python version rather than
-    #       the pyenv version in that directory. So we extract it based on the .python-version
-    #       in the alice directory.
-    pythonVersion=$(cat ${ALIBUILD_WORK_DIR}/../.python-version)
-    addToLDLibraryPath "${PYENV_ROOT}/versions/${pythonVersion}/lib"
+    # Work around missing python library (due to AliBuild bug?? Unclear). It seems likely that
+    # it's due to AliBuild ignoring the rpath specified in python on linux (but it follows it
+    # on macOS). In any case, we can resolve it by adding explicitly to the LD_LIBRARY_PATH.
+    # NOTE: This requires the AliPhysics ctests to be disabled because it won't load the modified
+    #       LD_LIBRARY_PATH for the tests, which means it won't suceed on the first AliBuild build.
+    if [[ $(uname -s) != "Darwin" ]]; then
+        # Change to the AliBuild directory to ensure that we pick up the right python version
+        # By using `-q`, this change should happen quietly.
+        pushd -q ${ALIBUILD_WORK_DIR}
+        pythonVersion=$(pyenv version-name)
+        #echo "python version: ${pythonVersion}"
+        addToLDLibraryPath "${PYENV_ROOT}/versions/${pythonVersion}/lib"
+        popd -q
+    fi
 }
 
 # Add git zsh completion. Apparently it's rather different than bash...
