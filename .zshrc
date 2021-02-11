@@ -270,7 +270,7 @@ aliload()
     fi
     # Load the environment
     # alienv will report what is being loaded, so we don't need to it ourselves
-    eval `alienv load "${version}"`
+    eval `alienv modulecmd zsh load "${version}"`
     # Work around missing python library (due to AliBuild bug?? Unclear). It seems likely that
     # it's due to AliBuild ignoring the rpath specified in python on linux (but it follows it
     # on macOS). In any case, we can resolve it by adding explicitly to the LD_LIBRARY_PATH.
