@@ -269,7 +269,9 @@ aliload()
         version="$1"
     fi
     # Load the environment
-    # alienv will report what is being loaded, so we don't need to it ourselves
+    # alienv (more likely modulecmd) will only sometimes report what is being loaded, so we do
+    # it ourselves to be certain that we'll know what was done.
+    echo "Loading ${version}..."
     eval `alienv modulecmd zsh load "${version}"`
     # Work around missing python library (due to AliBuild bug?? Unclear). It seems likely that
     # it's due to AliBuild ignoring the rpath specified in python on linux (but it follows it
