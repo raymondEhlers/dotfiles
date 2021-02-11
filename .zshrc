@@ -219,7 +219,7 @@ alias rootb="root -l -b -q"
 # ALICE specific settings
 export alien_API_USER="rehlersi"
 # For aliBuild
-export ALIBUILD_WORK_DIR="/opt/thielsen/rehlers/software/alice/sw"
+export ALIBUILD_WORK_DIR="${HOME}/alice/sw"
 if command -v alienv &> /dev/null; then
     # Load environment helper
     eval "`alienv shell-helper`"
