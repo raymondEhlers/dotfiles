@@ -267,14 +267,14 @@ aliload()
 {
     # Specify AliPhysics as the default version
     version="AliPhysics/latest"
-    if [[ -n "$1" ]]; then
-        version="$1"
+    if [[ -n "$@" ]]; then
+        version="$@"
     fi
     # Load the environment
     # alienv (more likely modulecmd) will only sometimes report what is being loaded, so we do
     # it ourselves to be certain that we'll know what was done.
     echo "Loading ${version}..."
-    eval `alienv modulecmd zsh load "${version}"`
+    eval `alienv modulecmd zsh load "${=version}"`
     # Work around missing python library (due to AliBuild bug?? Unclear). It seems likely that
     # it's due to AliBuild ignoring the rpath specified in python on linux (but it follows it
     # on macOS). In any case, we can resolve it by adding explicitly to the LD_LIBRARY_PATH.
