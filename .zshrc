@@ -224,22 +224,34 @@ if command -v alienv &> /dev/null; then
     # Load environment helper
     eval "`alienv shell-helper`"
 fi
+
+# Determine the alibuild architecture. This will only work on architectures where
+# I've tested it, but that's probably good enough
+alibuildArchitechture()
+{
+    arch=""
+    for p in ${ALIBUILD_WORK_DIR}/*; do
+        # We want just the dir name, not the whole path
+        d=$(basename ${p})
+        if [[ "${d}" ==  *"ubuntu"* || "${d}" ==  *"osx"* ]]; then
+            # Once we've found the architecture, we can continue.
+            # There will be only one architecture-like directory.
+            arch="${d}"
+            break
+        fi
+    done
+    echo "$arch"
+}
 # If we're on Debian, we always need to set the architecture. So we redefine the aliBuild and alienv
 # commands when appropriate. For now, we'll grab the architecture name from the AliBuild dir so we
 # don't have to map names to Ubuntu versions.
 if command -v lsb_release &> /dev/null; then
     if [[ "Debian" == "$(lsb_release -si)" ]]; then
         additionalOptions=""
-        for p in ${ALIBUILD_WORK_DIR}/*; do
-            # We want just the dir name, not the whole path
-            d=$(basename ${p})
-            if [[ "${d}" ==  *"ubuntu"* ]]; then
-                # Once we've found the architecture, we can continue.
-                # There will be only one Ubuntu directory.
-                additionalOptions="--architecture ${d}"
-                break
-            fi
-        done
+        arch=$(alibuildArchitechture)
+        if [[ ! -z "${arch}" ]]; then
+            additionalOptions="--architecture ${arch}"
+        fi
         if [[ ! -z "${additionalOptions}" ]]; then
             # NOTE: If we are defining alienv with the architecture not using this alias, then we need to
             #       explicitly split the arguments using the "=" option: ie. ${=additionalOptions}. This is
@@ -275,11 +287,22 @@ aliload()
     # it ourselves to be certain that we'll know what was done.
     echo "Loading ${version}..."
     eval `alienv modulecmd zsh load "${=version}"`
+    # Remove the Python-modules virtualenv from everything. The packages are old and pinned, so
+    # better to just remove them. In the unexpected case where we actually need one of these
+    # dependencies, I can install it into my current virtualenv.
+    # NOTE: We can't just unset the PYTHONPATH because we need it for ROOT, xjalienfs, etc.
+    # NOTE: We also need to remove from the PATH, LD_LIBRARY_PATH
+    # sed based on here: https://superuser.com/a/1117805
+    arch=$(alibuildArchitechture)
+    export PATH=$(sed "s,:$ALIBUILD_WORK_DIR/$arch/Python-modules/[^:]\+\(:\|$\),,g" <<< "$PATH")
+    export LD_LIBRARY_PATH=$(sed "s,:$ALIBUILD_WORK_DIR/$arch/Python-modules/[^:]\+\(:\|$\),,g" <<< "$LD_LIBRARY_PATH")
+    export PYTHONPATH=$(sed "s,:$ALIBUILD_WORK_DIR/$arch/Python-modules/[^:]\+\(:\|$\),,g" <<< "$PYTHONPATH")
+
     # Work around missing python library (due to AliBuild bug?? Unclear). It seems likely that
-    # it's due to AliBuild ignoring the rpath specified in python on linux (but it follows it
+    # it's due to AliBuild ignoring the rpath specified in python on Linux (but it follows it
     # on macOS). In any case, we can resolve it by adding explicitly to the LD_LIBRARY_PATH.
     # NOTE: This requires the AliPhysics ctests to be disabled because it won't load the modified
-    #       LD_LIBRARY_PATH for the tests, which means it won't suceed on the first AliBuild build.
+    #       LD_LIBRARY_PATH for the tests, which means it won't succeed on the first AliBuild build.
     if [[ $(uname -s) != "Darwin" ]]; then
         # Change to the AliBuild directory to ensure that we pick up the right python version
         # By using `-q`, this change should happen quietly.
