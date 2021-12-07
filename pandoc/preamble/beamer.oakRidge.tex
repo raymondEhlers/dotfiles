@@ -8,9 +8,11 @@
 % NOTE: This assumes the path to the file, but it is probably reasonable given
 %       that it is most likely to be used in conjunction with pandoc
 \pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.local/share/pandoc/preamble/images/aliceLogo}
+\pgfdeclareimage{beamerTitleLogoALICEForDarkBackground}{$HOME/.local/share/pandoc/preamble/images/2012-Jul-04-4_Color_Logo_small_DB_0.png}
 \pgfdeclareimage{beamerTitleLogoORNL}{$HOME/.local/share/pandoc/preamble/images/ORNL}
 \pgfdeclareimage{beamerTitleLogoUTK}{$HOME/.local/share/pandoc/preamble/images/UTKnoxvilleLogoLeft}
 \pgfdeclareimage{beamerTitleLogoJetscape}{$HOME/.local/share/pandoc/preamble/images/jetscapeLogo}
+\pgfdeclareimage{beamerTitleLogoECCE}{$HOME/.local/share/pandoc/preamble/images/ecceLogo.png}
 \pgfdeclareimage{beamerTitleLogoYale}{$HOME/.local/share/pandoc/preamble/images/yaleLogo}
 \pgfdeclareimage{beamerTitleLogoWrightLab}{$HOME/.local/share/pandoc/preamble/images/wrightLab2Line}
 % NOTE: The titlegraphic is defined in each document's header. This way, we can vary the logos more easily there.
@@ -26,7 +28,8 @@
         \usebeamerfont{page number in head/foot}%
         \usebeamertemplate*{frame footer}
         \hfill%
-        \usebeamertemplate*{frame numbering}
+        %\usebeamertemplate*{frame numbering}
+        \insertpagenumber
       \end{beamercolorbox}%
     \fi%
     }
@@ -52,5 +55,6 @@
 }
 
 % Images
-\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{#2}}}}
+\newcommand{\insertImage}[2]{\centering{\includegraphics[width=#1]{#2}}}
+%\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{#2}}}}
 
