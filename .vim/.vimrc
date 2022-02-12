@@ -306,9 +306,10 @@ let g:pandoc#command#latex_engine = "pdflatex"
 " let g:pandoc#command#templates_file =
 
 " Set pandoc formatting and textwidth
-" A is a smart autoformatting mode
+" A is a smart autoformatting mode, but seems to be too aggressive.
+" a seems to work better, and gets me part of the way there (changed in December 2021)
 " 110 seems to be reasonable when using the main laptop screen
-let g:pandoc#formatting#mode = "hA"
+let g:pandoc#formatting#mode = "ha"
 let g:pandoc#formatting#textwidth = 110
 
 " Remap leader to something easier to use
