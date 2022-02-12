@@ -1,7 +1,12 @@
 % Packages
-%\usetheme{yale} % My fork is available at https://github.com/raymondEhlers/yale-beamer
 \usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{bm} % Allows for proper bold math, such as in the slide titles
+\usepackage{changepage} % Used to move tikzpicture to the left.
+\usepackage[clock]{ifsym} % For work-in-progress symbol (clock)
 \usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{fit,calc} % For creating block diagrams.
 \usetikzlibrary{positioning}
 
 % This is the title logo
@@ -18,6 +23,7 @@
 % NOTE: The titlegraphic is defined in each document's header. This way, we can vary the logos more easily there.
 %       We just need to enumerate the logos here.
 
+% Customize beamer related settings
 % Avoid showing a footer on the title slide.
 % Needed for the metropolis theme, which by default doesn't have a footer, so it doesn't address this issue.
 \setbeamertemplate{footline}{%
@@ -33,17 +39,6 @@
       \end{beamercolorbox}%
     \fi%
     }
-
-% Setting options
-% Set left and right margins
-% See: https://tex.stackexchange.com/a/354025
-\setbeamersize{text margin left=15mm,text margin right=15mm}
-
-% For drawing
-% It may be better to use TikZ for such drawings in the future.
-\setlength{\unitlength}{1in}
-\thicklines
-
 % Show the outline at the beginning of each section
 % See: https://tex.stackexchange.com/a/26713
 \AtBeginSection[]
@@ -53,8 +48,73 @@
         \tableofcontents[currentsection]
     \end{frame}
 }
+% Customize the footer to include the short author followed by the date.
+\setbeamertemplate{frame footer}{\insertshortauthor~-~\insertdate}
+% Font customization. Somehow the font sizes look smaller in the green, so we increase a number of them.
+\setbeamerfont{title}{size=\LARGE}
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{author}{size=\normalsize}
+% Set left and right margins
+% See: https://tex.stackexchange.com/a/354025
+\setbeamersize{text margin left=15mm,text margin right=15mm}
 
+% Next, customize metropolis color scheme.
+% Normally, we would just define normal text as UCBBlue and be done with it. However, the
+% blue text is hard to read on slides. So we need to make the normal text black, and then update
+% the theme were needed.
+% Main colors
+\definecolor{UCBBlue}{HTML}{003262} % UCB Blue (primary) - "Berkeley Blue"
+\definecolor{UCBLightBlue}{HTML}{3B7EA1} % UCB Light Blue (secondary) - "Founder's Rock"
+\definecolor{UCBOrange}{HTML}{D9661F} % UCB Orange (secondary) - "Wellman Tile"
+\setbeamercolor{normal text}{fg=black, bg=white}
+% Tweaks any bars, including dividing
+\setbeamercolor{progress bar}{fg=UCBLightBlue, bg=UCBLightBlue!50!black!30} % Formula for bg is default in Metropolis.
+% Title page
+\setbeamercolor{titlelike}{fg=UCBBlue, bg=white}
+\setbeamercolor{author}{fg=UCBBlue, bg=white}
+\setbeamercolor{date}{fg=UCBBlue, bg=white}
+\setbeamercolor{institute}{fg=UCBBlue, bg=white}
+% Structure of the page (bullet point color, etc)
+\setbeamercolor{structure}{fg=UCBBlue, bg=white}
+% Color of the frame title and background, so we invert it (this appears to be the standard approach)
+\setbeamercolor{palette primary}{fg=white, bg=UCBBlue}
+% Footer color
+\setbeamercolor{footline}{fg=UCBBlue!90}
+
+% For drawing
+% Generally, I use TikZ, but it's good to have reasonable settings when I use other things.
+\setlength{\unitlength}{1in}
+\thicklines
+
+% Custom commands and helpers
 % Images
 \newcommand{\insertImage}[2]{\centering{\includegraphics[width=#1]{#2}}}
-%\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{#2}}}}
+
+\newcommand\AliceApprovedLabel[4][1.0]{%
+  % Arguments
+  % 1: Scale factor used for including the image (prefactor for multiplying \textwidth). Default: 1.0.
+  % 2: Name of node containing the image.
+  % 3: Scale factor for the text size (it varies for Preliminary vs Simulation).
+  % 4: Text to display.
+  % Based on: https://tex.stackexchange.com/a/214390
+  \begin{scope}[x={($ (#2.south east) - (#2.south west) $ )},y={( $ (#2.north west) - (#2.south west)$ )}, shift={(#2.south west)}]
+      % Alice Label color: (178, 178, 178) (based on color picker)
+      % pcr = Courier, which was identified as the font used by ALICE. (pcr in pdflatex, Courier in xelatex)
+      % Placement determined by overlaying on the approved figure
+      % Test with blue
+      %\node[anchor=south west, inner sep={0.005 * #1 * \textwidth}] at (0, 0) {\fontfamily{pcr}\selectfont\resizebox{\textwidth*\real{#3}*\real{#1}}{!}{\textbf{#4}}};
+      % Production with grey.
+      \node[anchor=south west, inner sep={0.005 * #1 * \textwidth}] at (0, 0) {\setmonofont{Courier}\resizebox{\textwidth*\real{#3}*\real{#1}}{!}{\textcolor[rgb]{0.698,0.698,0.698}{\textbf{#4}}}};
+      %\node[anchor=south west, inner sep={0.005 * #1 * \textwidth}] at (0, 0) {\setmonofont{Courier Bold}\resizebox{\textwidth*\real{#3}*\real{#1}}{!}{\textcolor[rgb]{0.698,0.698,0.698}{#4}}};
+  \end{scope}
+}
+\newcommand\AlicePreliminary[3][1.0]{%
+  \node[anchor=south west,inner sep=0] (image) at (0,0) {#2};
+  \AliceApprovedLabel[#1]{image}{0.185}{#3}
+}
+\newcommand\AlicePreliminaryStandalone[3][1.0]{%
+  \begin{tikzpicture}
+    \AlicePreliminary[#1]{#2}{#3}
+  \end{tikzpicture}
+}
 
