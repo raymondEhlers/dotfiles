@@ -1,0 +1,60 @@
+% Packages
+%\usetheme{yale} % My fork is available at https://github.com/raymondEhlers/yale-beamer
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+% This is the title logo
+% NOTE: This assumes the path to the file, but it is probably reasonable given
+%       that it is most likely to be used in conjunction with pandoc
+\pgfdeclareimage{beamerTitleLogoALICE}{$HOME/.local/share/pandoc/preamble/images/aliceLogo}
+\pgfdeclareimage{beamerTitleLogoALICEForDarkBackground}{$HOME/.local/share/pandoc/preamble/images/2012-Jul-04-4_Color_Logo_small_DB_0.png}
+\pgfdeclareimage{beamerTitleLogoLBL}{$HOME/.local/share/pandoc/preamble/images/4_BL_Horiz_Pos-rgb.png}
+\pgfdeclareimage{beamerTitleLogoUCB}{$HOME/.local/share/pandoc/preamble/images/UCBerkeley_wordmark_blue}
+\pgfdeclareimage{beamerTitleLogoJetscape}{$HOME/.local/share/pandoc/preamble/images/jetscapeLogo}
+\pgfdeclareimage{beamerTitleLogoECCE}{$HOME/.local/share/pandoc/preamble/images/ecceLogo.png}
+\pgfdeclareimage{beamerTitleLogoYale}{$HOME/.local/share/pandoc/preamble/images/yaleLogo}
+\pgfdeclareimage{beamerTitleLogoWrightLab}{$HOME/.local/share/pandoc/preamble/images/wrightLab2Line}
+% NOTE: The titlegraphic is defined in each document's header. This way, we can vary the logos more easily there.
+%       We just need to enumerate the logos here.
+
+% Avoid showing a footer on the title slide.
+% Needed for the metropolis theme, which by default doesn't have a footer, so it doesn't address this issue.
+\setbeamertemplate{footline}{%
+    \ifnum \insertframenumber=1%
+      % There was no frame title
+    \else%
+      \begin{beamercolorbox}[wd=\textwidth, sep=2.5ex]{footline}%
+        \usebeamerfont{page number in head/foot}%
+        \usebeamertemplate*{frame footer}
+        \hfill%
+        %\usebeamertemplate*{frame numbering}
+        \insertpagenumber
+      \end{beamercolorbox}%
+    \fi%
+    }
+
+% Setting options
+% Set left and right margins
+% See: https://tex.stackexchange.com/a/354025
+\setbeamersize{text margin left=15mm,text margin right=15mm}
+
+% For drawing
+% It may be better to use TikZ for such drawings in the future.
+\setlength{\unitlength}{1in}
+\thicklines
+
+% Show the outline at the beginning of each section
+% See: https://tex.stackexchange.com/a/26713
+\AtBeginSection[]
+{
+    \begin{frame}<beamer>
+        \frametitle{Outline}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+% Images
+\newcommand{\insertImage}[2]{\centering{\includegraphics[width=#1]{#2}}}
+%\newcommand{\insertImage}[2]{\centering{\frame{\includegraphics[width=#1]{#2}}}}
+
