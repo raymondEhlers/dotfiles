@@ -143,7 +143,8 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " injection into the current line (noinsert).
 set completeopt=noinsert,menuone,noselect
 " Clang path. Careful! This depends on the path on macOS.
-let g:ncm2_pyclang#library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
+"let g:ncm2_pyclang#library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/'
+let g:ncm2_pyclang#library_path = '/Library/Developer/CommandLineTools/usr/lib'
 " Allow use of jump to declaration
 autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 
