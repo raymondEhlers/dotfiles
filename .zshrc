@@ -77,6 +77,15 @@ notifyDone()
     terminal-notifier -title "Job done" -message "${message}" -activate "com.googlecode.iterm2" -sound Purr
 }
 
+# Setup shell completions. As far as I understand in April 2022, I think this be fairly early on
+# Add additional zsh functions (as of April 2022, introduced for poetry)
+fpath+=~/.zfunc
+# Add git zsh completion. Apparently it's rather different than bash...
+autoload -U compinit && compinit
+zmodload -i zsh/complist
+# For bash completions support, I think (?)
+autoload -U bashcompinit && bashcompinit
+
 # Setup install area
 export MYINSTALL="${HOME}/install"
 # And create the necessary directories.
@@ -98,16 +107,15 @@ if [[ $(uname -s) == "Darwin" ]]; then
     addToPath "/usr/local/sbin"
     # Needed for ALICE software
     addToPath "/usr/local/opt/gettext/bin"
-    # Needed for python with homebrew
-    # This adds symlinks from python -> python3, etc
-    addToPath "/usr/local/opt/python/libexec/bin"
+    # We want a python -> python3 symlink
+    # My initial solution to this only worked by coincidence because the python3 version aligned...
+    # Need to make symlinks in the bin directory of the python install (usually via homebrew)
 fi
 
 # Language specific setup
 # Python
 # Pyenv (must go before retrieving the user-base path)
-export PYENV_ROOT="$HOME/.pyenv"
-addToPath "${PYENV_ROOT}/bin"
+# Moved PYENV_ROOT and PATH to .zprofile, since this is the new convention
 if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
 fi
@@ -315,9 +323,10 @@ aliload()
     fi
 }
 
-# Add git zsh completion. Apparently it's rather different than bash...
-autoload -U compinit && compinit
-zmodload -i zsh/complist
+# pipx
+# I would put this earlier, but it appears to cause some issues. I'm probably missing some dependence,
+# but it seems to work fine here, so good enough...
+eval "$(register-python-argcomplete pipx)"
 
 # added by travis gem
 [ -f /Users/re239/.travis/travis.sh ] && source /Users/re239/.travis/travis.sh
