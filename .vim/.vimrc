@@ -56,7 +56,9 @@ Plug 'ncm2/ncm2-markdown-subscope'
 
 " Improve syntax highlighting
 " Python
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" Use fork because there is a fix for https://github.com/numirias/semshi/issues/116
+Plug 'aubustou/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'Vimjas/vim-python-pep8-indent'
 " C++
 Plug 'vim-jp/vim-cpp'
