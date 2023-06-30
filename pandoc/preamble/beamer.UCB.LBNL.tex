@@ -30,8 +30,11 @@
         \usebeamerfont{page number in head/foot}%
         \usebeamertemplate*{frame footer}
         \hfill%
+        % NOTE: We use page number so it increases for each overlay step.
+        % NOTE: We subtract 1 because we don't want to count the title frame.
+        %       This is a bit janky, but there doesn't seem to be other nice solutions.
         %\usebeamertemplate*{frame numbering}
-        \insertpagenumber
+        \number\numexpr\insertpagenumber-1
       \end{beamercolorbox}%
     \fi%
     }
