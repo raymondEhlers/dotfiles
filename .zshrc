@@ -122,13 +122,15 @@ fi
 # Add bin for pip packages installed with `--user`
 pythonUserPrefix="$(python3 -m site --user-base)"
 addToPath "${pythonUserPrefix}/bin"
+# Ensure we're in a virtualenv
+export PIP_REQUIRE_VIRTUALENV=true
 # Go
 # It's fairly likely that go will be installed in /usr/local/go, so we assume that here.
 addToPath "/usr/local/go/bin"
 
 # Options
 # General
-export EDITOR="vim"
+export EDITOR="nvim"
 # zsh
 # history options
 HISTFILE="$HOME/.zsh_history"
@@ -327,26 +329,32 @@ aliload()
 # I would put this earlier, but it appears to cause some issues. I'm probably missing some dependence,
 # but it seems to work fine here, so good enough...
 eval "$(register-python-argcomplete pipx)"
+# Needed for executables
+addToPath "${HOME}/.local/bin"
+
+# GitHub Copilot for nvim:
+# Note that I need node 18 explicitly
+addToPath "/opt/homebrew/opt/node@18/bin"
 
 # added by travis gem
 [ -f /Users/re239/.travis/travis.sh ] && source /Users/re239/.travis/travis.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/mambaforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/mambaforge/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
 
-if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/mamba.sh" ]; then
-    . "/usr/local/Caskroom/miniconda/base/etc/profile.d/mamba.sh"
+if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
+    . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
 
