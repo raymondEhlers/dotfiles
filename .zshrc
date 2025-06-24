@@ -150,6 +150,10 @@ bindkey '^R' history-incremental-search-backward
 bindkey '^A' vi-beginning-of-line
 # ctrl-e to jump to the end of the line.
 bindkey '^E' vi-end-of-line
+# improved history
+if command -v atuin &> /dev/null; then
+    eval "$(atuin init zsh)"
+fi
 # ls
 # Options for ls:
 #   -l is long,
@@ -328,9 +332,15 @@ aliload()
 # pipx
 # I would put this earlier, but it appears to cause some issues. I'm probably missing some dependence,
 # but it seems to work fine here, so good enough...
-eval "$(register-python-argcomplete pipx)"
+# Disabled as of 2025 June since I've mostly switched to uv
+#eval "$(register-python-argcomplete pipx)"
 # Needed for executables
 addToPath "${HOME}/.local/bin"
+
+# Starship
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
 
 # GitHub Copilot for nvim:
 # Note that I need node 18 explicitly
