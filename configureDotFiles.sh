@@ -138,6 +138,9 @@ installFiles "pandoc" "$HOME/.local/share"
 # pylint rc
 installFiles ".pylintrc" "$HOME"
 
+# Starship
+installFiles "starship.toml" "$HOME/.config"
+
 # createNewProject (c++)
 if [[ $(uname -s) == "Darwin" ]];
 then
