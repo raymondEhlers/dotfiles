@@ -58,7 +58,9 @@ Plug 'ncm2/ncm2-markdown-subscope'
 " Python
 "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " Use fork because there is a fix for https://github.com/numirias/semshi/issues/116
-Plug 'aubustou/semshi', {'do': ':UpdateRemotePlugins'}
+"Plug 'aubustou/semshi', {'do': ':UpdateRemotePlugins'}
+" Try new fork to fix python 3.13 issues?
+Plug 'wookayin/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'Vimjas/vim-python-pep8-indent'
 " C++
 Plug 'vim-jp/vim-cpp'

@@ -111,6 +111,15 @@ if [[ $(uname -s) == "Darwin" ]]; then
     # My initial solution to this only worked by coincidence because the python3 version aligned...
     # Need to make symlinks in the bin directory of the python install (usually via homebrew)
 fi
+# Setup Linuxbrew if available
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    # Enable installed zsh completion files
+    if [ -f $(brew --prefix)/etc/zsh_completion ]; then
+        source $(brew --prefix)/etc/zsh_completion
+    fi
+fi
 
 # Language specific setup
 # Python
