@@ -89,6 +89,9 @@ fi
 # .ackrc
 installFiles ".ackrc" "$HOME"
 
+# atuin
+installFiles "atuin" "$HOME/.config"
+
 # .ctags
 installFiles ".ctags" "$HOME"
 
