@@ -343,6 +343,9 @@ aliload()
 # but it seems to work fine here, so good enough...
 # Disabled as of 2025 June since I've mostly switched to uv
 #eval "$(register-python-argcomplete pipx)"
+# uv
+# Set the expected virtualenv name. This assumes python 3.13, but hopefully this will remind me how to fix it...
+export UV_PROJECT_ENVIRONMENT=.venv-3.13
 # Needed for executables
 addToPath "${HOME}/.local/bin"
 
